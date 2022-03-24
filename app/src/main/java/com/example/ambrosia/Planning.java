@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.ambrosia.planning.Day;
+import com.example.ambrosia.planning.Days;
 import com.example.ambrosia.planning.Week;
 import com.google.android.material.tabs.TabLayout;
 
@@ -24,7 +24,7 @@ public class Planning extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         VPAdapter vpAdapter = new VPAdapter(getChildFragmentManager(),
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vpAdapter.addTab(new Day(), "Day");
+        vpAdapter.addTab(new Days(), "Day");
         vpAdapter.addTab(new Week(), "Week");
 
         ViewPager viewPager = view.findViewById(R.id.pager);
