@@ -1,4 +1,4 @@
-package com.example.ambrosia.planning;
+package com.example.ambrosia.planning.Day;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +37,8 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     public int getItemCount() {
         return dayList.size();
     }
+
+    public DayEnum getDay(int id){return dayList.get(id).getDay();}
 
     class DayViewHolder extends RecyclerView.ViewHolder {
 

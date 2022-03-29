@@ -1,4 +1,4 @@
-package com.example.ambrosia.planning;
+package com.example.ambrosia.planning.Week;
 
 import android.os.Bundle;
 

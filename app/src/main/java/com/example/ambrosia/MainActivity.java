@@ -1,18 +1,26 @@
 package com.example.ambrosia;
 
 import android.annotation.SuppressLint;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.example.ambrosia.planning.Planning;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView binding;
+    MaterialToolbar toolbar;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    FrameLayout frameLayout;
 
     @SuppressLint("NonConstantResourceId")
     @Override

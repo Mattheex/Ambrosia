@@ -1,4 +1,4 @@
-package com.example.ambrosia.planning;
+package com.example.ambrosia.planning.Day;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

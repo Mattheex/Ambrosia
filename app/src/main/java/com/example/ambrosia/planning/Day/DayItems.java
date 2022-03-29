@@ -1,10 +1,19 @@
-package com.example.ambrosia.planning;
+package com.example.ambrosia.planning.Day;
 
 public class DayItems {
     private String dej;
     private String midi;
     private String gouter;
     private String diner;
+    private DayEnum day;
+
+    public DayItems(DayEnum day){
+        this.day = day;
+    }
+
+    public DayEnum getDay() {
+        return day;
+    }
 
     public String getDej() {
         return dej;
