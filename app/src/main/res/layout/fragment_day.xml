@@ -1,20 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".planning.Day">
+    android:layout_margin="5dp"
+    android:orientation="vertical"
+    tools:context=".planning.Day.Day">
 
-    <TextView
-        android:id="@+id/motivQuoteText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="10dp"
-        android:text='"Le succès est la somme de petits efforts, répétés jours après jours."'
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/dejeuner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Petit-déjeuner"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/descriptionDej"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nutella, pain de mie, pomme" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/midi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Midi"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/descriptionMidi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Poisson pané, lentilles" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/gouter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Goûter"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/descriptionGout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="clémentine, thé" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/diner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Repas du soir"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/descriptionDiner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="salade, tomate, mais" />
+    </LinearLayout>
+</LinearLayout>
