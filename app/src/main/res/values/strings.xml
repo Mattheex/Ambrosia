@@ -7,4 +7,8 @@
     <string name="forum">Forum</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="nom">Nom :</string>
+    <string name="mail">Mail :</string>
+    <string name="textview">TextView</string>
+    <string name="todo">TODO</string>
 </resources>
