@@ -82,20 +82,20 @@
             android:id="@+id/Poids"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Poids :"
-            android:textColor="@color/black"
             android:layout_marginTop="50dp"
-            android:textSize="30sp"
-            android:textAlignment="center"/>
+            android:text="Poids :"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
 
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/oip"
-        android:contentDescription="@string/todo" />
+        android:layout_height="97dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/oip" />
 
     <ImageButton
         android:id="@+id/imageButton"
