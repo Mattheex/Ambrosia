@@ -1,9 +1,17 @@
 package com.example.ambrosia;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -13,6 +21,8 @@ import com.example.ambrosia.planning.Planning;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,8 +37,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        createNotificationChannel();
 
         replaceFragment(new Planning());
+
+        Button button = findViewById(R.id.button);
+
+        button.setOnClickListener(v -> {
+            Toast.makeText(this, "Reminder Set!", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(MainActivity.this, NotificationMessage.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+            long timeAtButtonClick = System.currentTimeMillis();
+
+            long tenSecondsInMillis = 1000*10;
+
+            alarmManager.set(AlarmManager.RTC_WAKEUP,
+                    timeAtButtonClick + tenSecondsInMillis,
+                    pendingIntent);
+
+
+        });
 
         binding = findViewById(R.id.bottomMenu);
         binding.getMenu().getItem(1).setChecked(true);
@@ -54,5 +86,19 @@ public class MainActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .replace(R.id.frameLayout, fragment)
                 .commit();
+    }
+
+    private void createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Repas";
+            String description = "Rappel de manger !";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("channel Ambrosia", name, importance);
+            channel.setDescription(description);
+
+            //cannot be changed after
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 }
