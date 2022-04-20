@@ -6,15 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ParametreProfil">
 
-
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/calendrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bonjourrrrrrrrr"
+        android:onClick="onClick"
+        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myCalendar"
+        app:layout_constraintVertical_bias="0.589" />
+
+    <DatePicker
+        android:id="@+id/myCalendar"
+        android:layout_width="372dp"
+        android:layout_height="265dp"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="93dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="0.283" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

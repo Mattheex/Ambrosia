@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-<<<<<<< HEAD
-  <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="Android API 32 Platform" project-jdk-type="Android SDK" />
-=======
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/33668/AndroidStudioProjects/Ambrosia/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/33668/AndroidStudioProjects/Ambrosia/app/src/main/res/layout/fragment_day.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/drawable/border.xml" value="0.1645" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/active_text.xml" value="0.11041666666666666" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/activity_main.xml" value="0.1947463768115942" />
@@ -21,10 +15,18 @@
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/headerfile.xml" value="0.25" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/toolbar.xml" value="0.2269021739130435" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/menu/sidemenu.xml" value="0.25" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/active_text.xml" value="0.1334853090172239" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/activity_main.xml" value="0.1334853090172239" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/activity_parametre_profil.xml" value="0.136" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_chat.xml" value="0.1334853090172239" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_day.xml" value="0.1334853090172239" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_forum.xml" value="0.1" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_planning.xml" value="0.1334853090172239" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_profil.xml" value="0.1" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_week.xml" value="0.1334853090172239" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
->>>>>>> 80bc520b786341cce35935c8ab5675d2a5b35d2d
 </project>
