@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.legacy.content.WakefulBroadcastReceiver;
 
 import com.example.ambrosia.NotificationActivity;
+import com.example.ambrosia.R;
 import com.example.ambrosia.broadcast_receivers.NotificationEventReceiver;
 
 public class NotificationIntentService extends IntentService {
@@ -61,9 +62,9 @@ public class NotificationIntentService extends IntentService {
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setContentTitle("Scheduled Notification")
                 .setAutoCancel(true)
-                .setColor(getResources().getColor(R.color.colorAccent))
+                .setColor(getResources().getColor(R.color.black))
                 .setContentText("This notification has been triggered by Notification Service")
-                .setSmallIcon(R.drawable.notification_icon);
+                .setSmallIcon(R.drawable.ambrosia);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 NOTIFICATION_ID,

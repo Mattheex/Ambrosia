@@ -27,7 +27,8 @@
             android:exported="false" />
 
         <receiver android:name=".broadcast_receivers.NotificationEventReceiver" />
-        <receiver android:name=".broadcast_receivers.NotificationServiceStarterReceiver">
+        <receiver android:name=".broadcast_receivers.NotificationServiceStarterReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
@@ -36,7 +37,8 @@
         </receiver>
 
         <activity
-            android:name=".NotificationActivity" />
+            android:name=".NotificationActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
     </application>
 
