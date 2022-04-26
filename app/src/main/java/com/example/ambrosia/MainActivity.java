@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        sendNotification();
         //replaceFragment(new Planning());
 
         binding = findViewById(R.id.bottomMenu);
@@ -69,8 +69,17 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void onSendNotificationsButtonClick(View view) {
-        NotificationEventReceiver.setupAlarm(getApplicationContext());
+    // au lancement de l'appli
+    private void sendNotification() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.e(getClass().getSimpleName(),"NOTIFICATION");
+            NotificationEventReceiver.setupAlarm(getApplicationContext());
+        }).start();
     }
 
     @Override
