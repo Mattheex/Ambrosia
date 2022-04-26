@@ -3,31 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:gravity="top"
     android:orientation="vertical"
     tools:context=".Profil">
 
 
     <TextView
-        android:id="@+id/nextPage"
+        android:id="@+id/profil"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/profil"
-        android:textColor="@color/black"
-        android:textSize="40sp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@color/purple_200"
-        android:textAlignment="center" />
-
+        android:text="@string/profil"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="40sp" />
 
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/nom"
@@ -79,30 +78,46 @@
             android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/Poids"
-            android:layout_width="match_parent"
+            android:id="@+id/poids"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="Poids :"
-            android:textAlignment="center"
+            android:text="poids :"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="97dp"
-        android:contentDescription="@string/todo"
-        android:src="@drawable/oip" />
 
     <ImageButton
         android:id="@+id/ntm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_weight="1"
         android:src="@android:drawable/ic_menu_preferences" />
+
+    <Button
+        android:id="@+id/creation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Créer un profil type" />
+
+    <Button
+        android:id="@+id/recuperation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Récuperer un profil type" />
+
+    <Button
+        android:id="@+id/connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="0dp"
+        android:text="Se connecter à un profil" />
 
 
 </LinearLayout>
