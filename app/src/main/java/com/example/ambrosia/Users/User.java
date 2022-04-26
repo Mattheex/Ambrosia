@@ -12,15 +12,17 @@ public class User {
     private String password;
     private String mail;
     private String sexe;
+        private Integer age;
 
     public User(){}
 
-    public User(Timestamp born, String firstname, String lastname, String password, String sexe) {
+    public User(Timestamp born, String firstname, String lastname, String password, String sexe, Integer age ) {
         this.born = born;
         this.first = firstname;
         this.last = lastname;
         this.password = password;
         this.sexe = sexe;
+        this.age = age;
     }
 
     public String getFirst() { return first; }
@@ -53,4 +55,13 @@ public class User {
     public String getSexe() { return sexe; }
 
     public void setSexe(String sexe) { this.sexe = sexe; }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
 }
