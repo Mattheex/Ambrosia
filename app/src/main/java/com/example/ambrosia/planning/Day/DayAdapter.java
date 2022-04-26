@@ -1,14 +1,20 @@
 package com.example.ambrosia.planning.Day;
 
+import android.content.Intent;
+import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ambrosia.R;
+import com.example.ambrosia.planning.Details.Details;
+import com.example.ambrosia.planning.Food;
 
 import java.util.List;
 
@@ -38,7 +44,9 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         return dayList.size();
     }
 
-    public DayEnum getDay(int id){return dayList.get(id).getDay();}
+    public DayEnum getDay(int id) {
+        return dayList.get(id).getDay();
+    }
 
     class DayViewHolder extends RecyclerView.ViewHolder {
 
@@ -46,10 +54,18 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
 
         public DayViewHolder(@NonNull View itemView) {
             super(itemView);
-            dejText = itemView.findViewById(R.id.dejeuner);
-            midiText = itemView.findViewById(R.id.midi);
-            goutText = itemView.findViewById(R.id.gouter);
-            dinerText = itemView.findViewById(R.id.diner);
+            dejText = itemView.findViewById(R.id.descriptionDej);
+            midiText = itemView.findViewById(R.id.descriptionMidi);
+            goutText = itemView.findViewById(R.id.descriptionGout);
+            dinerText = itemView.findViewById(R.id.descriptionDiner);
+            itemView.findViewById(R.id.daysLayout).setOnClickListener(view -> {
+                LinearLayout layout = (LinearLayout) view.findViewWithTag("day");
+                Food food = new Food("Nutella",300);
+                Intent intent = new Intent(view.getContext(), Details.class);
+                //intent.putExtra((Parcelable) food);
+                //startActivity(intent);
+                Log.d("click", String.valueOf(layout.getChildCount()));
+            });
         }
 
         void setDayData(DayItems dayData) {

@@ -46,6 +46,7 @@ public class Planning extends Fragment {
         weekAdapter = new WeekAdapter(weekItemsList);
         linearLayout = view.findViewById(R.id.linearLayoutDays);
 
+
         ViewPager2 viewPager2 = view.findViewById(R.id.pager2);
 
         viewPager2.setAdapter(dayAdapter);
