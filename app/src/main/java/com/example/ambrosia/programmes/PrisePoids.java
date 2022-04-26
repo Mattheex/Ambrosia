@@ -1,10 +1,9 @@
 package com.example.ambrosia.programmes;
 
-public class PrisePoids extends Programme{
-    public PrisePoids(){
-        super();
+public class PrisePoids extends ProgrammeTime{
+    public PrisePoids(int jour){
+        super(jour);
         nom = "PrisePoids";
-        jours = 30;
         System.out.println("PrisePoids is created");
     }
 }
