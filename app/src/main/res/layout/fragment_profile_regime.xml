@@ -72,4 +72,15 @@
         app:layout_constraintHorizontal_bias="0.807"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <ImageView
+        android:id="@+id/finReg"
+        android:layout_width="71dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="56dp"
+        android:src="@drawable/ic_outline_calendar_today_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wanted_weight" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
