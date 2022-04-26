@@ -58,14 +58,6 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
             midiText = itemView.findViewById(R.id.descriptionMidi);
             goutText = itemView.findViewById(R.id.descriptionGout);
             dinerText = itemView.findViewById(R.id.descriptionDiner);
-            itemView.findViewById(R.id.daysLayout).setOnClickListener(view -> {
-                LinearLayout layout = (LinearLayout) view.findViewWithTag("day");
-                Food food = new Food("Nutella",300);
-                Intent intent = new Intent(view.getContext(), Details.class);
-                //intent.putExtra((Parcelable) food);
-                //startActivity(intent);
-                Log.d("click", String.valueOf(layout.getChildCount()));
-            });
         }
 
         void setDayData(DayItems dayData) {

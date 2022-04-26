@@ -5,9 +5,9 @@ import static com.example.ambrosia.planning.Day.DayEnum.Lundi;
 import static com.example.ambrosia.planning.Day.DayEnum.Mardi;
 import static com.example.ambrosia.planning.Day.DayEnum.Mercredi;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +23,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.ambrosia.R;
 import com.example.ambrosia.planning.Day.DayAdapter;
 import com.example.ambrosia.planning.Day.DayItems;
+import com.example.ambrosia.planning.Details.Details;
 import com.example.ambrosia.planning.Week.WeekAdapter;
 import com.example.ambrosia.planning.Week.WeekItems;
 
@@ -85,6 +86,13 @@ public class Planning extends Fragment implements Observer {
                 button.setText("Weeks");
             }
         });
+        view.findViewById(R.id.motivQuoteText).setOnClickListener(view2 -> {
+            Food food = new Food("Nutella", 300);
+            Intent intent = new Intent(view2.getContext(), Details.class);
+            intent.putExtra("food", food);
+            startActivity(intent);
+        });
+
 
     }
 
