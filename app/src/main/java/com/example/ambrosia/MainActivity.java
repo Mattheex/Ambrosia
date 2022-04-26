@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -17,10 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+//import com.example.ambrosia.planning.Planning;
+import com.example.ambrosia.broadcast_receivers.NotificationEventReceiver;
 import com.example.ambrosia.planning.Planning;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Calendar;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,30 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        createNotificationChannel();
-
+        sendNotification();
         replaceFragment(new Planning());
-
-        Button button = findViewById(R.id.button);
-
-        button.setOnClickListener(v -> {
-            Toast.makeText(this, "Reminder Set!", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(MainActivity.this, NotificationMessage.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-            long timeAtButtonClick = System.currentTimeMillis();
-
-            long tenSecondsInMillis = 1000*10;
-
-            alarmManager.set(AlarmManager.RTC_WAKEUP,
-                    timeAtButtonClick + tenSecondsInMillis,
-                    pendingIntent);
-
-
-        });
 
         binding = findViewById(R.id.parametreMenu);
         binding.getMenu().getItem(1).setChecked(true);
@@ -86,17 +70,30 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Repas";
-            String description = "Rappel de manger !";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("channel Ambrosia", name, importance);
-            channel.setDescription(description);
+    // au lancement de l'appli
+    private void sendNotification() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.e(getClass().getSimpleName(),"NOTIFICATION");
+            NotificationEventReceiver.setupAlarm(getApplicationContext());
+        }).start();
+    }
 
-            //cannot be changed after
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+    }
+
+    // To prevent crash on resuming activity  : interaction with fragments allowed only after Fragments Resumed or in OnCreate
+    // http://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        // handleIntent();
     }
 }

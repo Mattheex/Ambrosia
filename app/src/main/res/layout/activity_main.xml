@@ -15,15 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="10">
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Remind Me in 10 Sec" />
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
