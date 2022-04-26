@@ -53,7 +53,7 @@ public class Profil extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        ImageButton button = (ImageButton) view.findViewById(R.id.ntm);
+        ImageButton button = (ImageButton) view.findViewById(R.id.creationProfil);
         Button buttonCreation = (Button) view.findViewById(R.id.creation);
         Button buttonRecuperation = (Button) view.findViewById(R.id.recuperation);
         Button buttonConnection = (Button) view.findViewById(R.id.connection);

@@ -1,0 +1,14 @@
+<resources>
+    <dimen name="motivQuote"> 20sp</dimen>
+    <dimen name ="nom_profil_size"> 27sp</dimen>
+    <dimen name ="mail_profil_size"> 27sp</dimen>
+    <dimen name ="age_profil_size"> 27sp</dimen>
+    <dimen name ="sex_profil_size"> 27sp</dimen>
+    <dimen name ="programme_profil_size"> 27sp</dimen>
+    <dimen name ="allergie_profil_size"> 27sp</dimen>
+    <dimen name ="poids_profil_size"> 27sp</dimen>
+    <dimen name ="titre_profil_size"> 40sp</dimen>
+
+
+
+</resources>
