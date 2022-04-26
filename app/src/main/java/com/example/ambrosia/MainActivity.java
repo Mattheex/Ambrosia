@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         sendNotification();
-        //replaceFragment(new Planning());
+        replaceFragment(new Planning());
 
         binding = findViewById(R.id.parametreMenu);
         binding.getMenu().getItem(1).setChecked(true);
