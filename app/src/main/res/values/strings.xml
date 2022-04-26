@@ -11,4 +11,6 @@
     <string name="mail">Mail :</string>
     <string name="textview">TextView</string>
     <string name="todo">TODO</string>
+    <string name="suivant" />
+    <string name="précédent" />
 </resources>

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ambrosia">
         <activity
-            android:name=".ParametreProfil"
+            android:name=".parametres.Parametres"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

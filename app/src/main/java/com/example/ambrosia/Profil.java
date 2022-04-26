@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.ambrosia.parametres.ParametreProfil;
+import com.example.ambrosia.parametres.Parametres;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,9 +31,8 @@ public class Profil extends Fragment {
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                System.out.println("clekceldekcel");
-                nom.setText("ntm");
-                Intent param = new Intent(getActivity(),ParametreProfil.class);
+
+                Intent param = new Intent(getActivity(), Parametres.class);
                 startActivity(param);
             }});
 

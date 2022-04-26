@@ -4,13 +4,9 @@
     <item
         android:id="@+id/previous"
         android:icon="@drawable/ic_outline_forum_24"
-        android:title="@string/forum" />
-    <item
-        android:id="@+id/planning"
-        android:icon="@drawable/ic_outline_calendar_today_24"
-        android:title="@string/planning" />
+        android:title="@string/précédent" />
     <item
         android:id="@+id/nextPage"
         android:icon="@drawable/ic_outline_account_circle_24"
-        android:title="@string/profil" />
+        android:title="@string/suivant" />
 </menu>
