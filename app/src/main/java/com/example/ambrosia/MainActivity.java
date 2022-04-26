@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 //import com.example.ambrosia.planning.Planning;
 import com.example.ambrosia.broadcast_receivers.NotificationEventReceiver;
+import com.example.ambrosia.planning.Planning;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
