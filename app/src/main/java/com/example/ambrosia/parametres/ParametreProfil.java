@@ -24,15 +24,15 @@ public class ParametreProfil extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile_name, container, false);
-        ImageView button = (ImageView) view.findViewById(R.id.imageAnniv);
+        View myView = inflater.inflate(R.layout.fragment_profile_name, container, false);
+        ImageView button = (ImageView) myView.findViewById(R.id.imageAnniv);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
-                        TextView text= view.findViewById(R.id.anniversaire);
+                        TextView text= (TextView) myView.findViewById(R.id.anniversaire);
                         text.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                     }
                 };
@@ -42,8 +42,7 @@ public class ParametreProfil extends Fragment {
 
             }
         });
-        return view;
+
+        return myView;
     }
-
-
 }

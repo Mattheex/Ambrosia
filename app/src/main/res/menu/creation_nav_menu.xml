@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
-        android:id="@+id/previous"
-        android:icon="@drawable/ic_outline_forum_24"
-        android:title="@string/précédent" />
+        android:id="@+id/infoPerso"
+        android:title="infosPerso" />
     <item
-        android:id="@+id/nextPage"
-        android:icon="@drawable/ic_outline_account_circle_24"
-        android:title="@string/suivant" />
+        android:id="@+id/infoRegime"
+        android:title="infosRegime" />
+    <item
+        android:id="@+id/infoSecu"
+        android:title="infosSecu" />
 </menu>
