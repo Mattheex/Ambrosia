@@ -11,4 +11,12 @@
     <string name="mail">Mail :</string>
     <string name="textview">TextView</string>
     <string name="todo">TODO</string>
+    <string name="suivant" />
+    <string name="précédent" />
+    <string-array name="menus">
+        <item> Perte de poids </item>
+        <item> Prise de poids</item>
+        <item> Prise de masse musculaire </item>
+        <item> Devenir végétarien</item>
+    </string-array>
 </resources>

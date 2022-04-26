@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="motivQuote"> 10sp</dimen>
+    <dimen name ="nom_profil_size"> 17sp</dimen>
+    <dimen name ="mail_profil_size"> 17sp</dimen>
+    <dimen name ="age_profil_size"> 17sp</dimen>
+    <dimen name ="sex_profil_size"> 17sp</dimen>
+    <dimen name ="programme_profil_size"> 17sp</dimen>
+    <dimen name ="allergie_profil_size"> 17sp</dimen>
+    <dimen name ="poids_profil_size"> 17sp</dimen>
+    <dimen name ="titre_profil_size"> 30sp</dimen>
+
+</resources>

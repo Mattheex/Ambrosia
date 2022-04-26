@@ -22,8 +22,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.Objects;
-
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView binding;
@@ -62,15 +60,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        binding = findViewById(R.id.bottomMenu);
+        binding = findViewById(R.id.parametreMenu);
         binding.getMenu().getItem(1).setChecked(true);
         binding.setOnNavigationItemSelectedListener(item -> {
             Log.d("switch", String.valueOf(item.getItemId()));
             switch (item.getItemId()) {
-                case R.id.profil:
+                case R.id.nextPage:
                     replaceFragment(new Profil());
                     break;
-                case R.id.forum:
+                case R.id.previous:
                     replaceFragment(new Forum());
                     break;
                 case R.id.planning:
