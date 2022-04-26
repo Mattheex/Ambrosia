@@ -20,9 +20,11 @@ import android.widget.TextView;
 
 import com.example.ambrosia.R;
 import com.example.ambrosia.Users.User;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
+import java.util.Collection;
 
 public class ParametreProfil extends Fragment {
     public Calendar calendar;
@@ -68,12 +70,18 @@ public class ParametreProfil extends Fragment {
                 String email = emails.getText().toString();
                 String mdp = mdps.getText().toString();
 
-                user.setMail(email);
-                user.setFirst(first);
-                user.setLast(last);
-                user.setPassword(mdp);
+                CollectionReference userRef = db.collection("user");
 
-                db.collection("user").document(user.getMail()).set(user);
+                if (userRef.whereEqualTo("mail",email) == null){
+                    user.setMail(email);
+                    user.setFirst(first);
+                    user.setLast(last);
+                    user.setPassword(mdp);
+                    db.collection("user").document(user.getMail()).set(user);
+                }else{
+                    Log.d("Erreur", "Le profil a dejà été crée ");
+                }
+
 
 
             }
