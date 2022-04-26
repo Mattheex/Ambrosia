@@ -11,7 +11,15 @@
     <FrameLayout
         android:id="@+id/inscription"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/parametreMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:menu="@menu/creation_nav_menu" />
+
 </LinearLayout>

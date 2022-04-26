@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        binding = findViewById(R.id.bottomMenu);
+        binding = findViewById(R.id.parametreMenu);
         binding.getMenu().getItem(1).setChecked(true);
         binding.setOnNavigationItemSelectedListener(item -> {
             Log.d("switch", String.valueOf(item.getItemId()));

@@ -27,7 +27,7 @@
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomMenu"
+        android:id="@+id/parametreMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
