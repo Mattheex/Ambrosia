@@ -16,7 +16,7 @@ public class User {
 
     public User(){}
 
-    public User(Timestamp born, String firstname, String lastname, String password, String sexe, Integer age ) {
+    public User(Date born, String firstname, String lastname, String password, String sexe, Integer age ) {
         this.born = born;
         this.first = firstname;
         this.last = lastname;
