@@ -7,8 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".parametres.ParametreProfil">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/email"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/lastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -22,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:hint="Prenom"
-        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/lastName"
         tools:layout_editor_absoluteX="0dp" />
 
     <ImageView
@@ -77,5 +87,63 @@
             android:layout_height="wrap_content"
             android:text="Femme" />
     </RadioGroup>
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:hint="Email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.129" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/confirm_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:hint="Confirmer email"
+        app:layout_constraintTop_toTopOf="@id/email"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/mot_de_passe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:hint="mot de passe"
+        app:layout_constraintTop_toTopOf="@id/confirm_email"
+        tools:layout_editor_absoluteX="0dp" />
+
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/confirm_mdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:hint="Confirmer mot de passe"
+        app:layout_constraintTop_toTopOf="@id/mot_de_passe"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/buttonValidation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Validation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:layout_constraintVertical_bias="0.734" />
+
+    </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
