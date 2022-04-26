@@ -4,10 +4,12 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.legacy.content.WakefulBroadcastReceiver;
 
+import com.example.ambrosia.R;
 import com.example.ambrosia.notification.NotificationIntentService;
 
 import java.util.Calendar;
@@ -16,15 +18,13 @@ import java.util.Date;
 public class NotificationEventReceiver extends WakefulBroadcastReceiver {
 
     private static final String ACTION_START_NOTIFICATION_SERVICE = "ACTION_START_NOTIFICATION_SERVICE";
-    private static final String ACTION_DELETE_NOTIFICATION = "ACTION_DELETE_NOTIFICATION";
-    private static final int NOTIFICATIONS_INTERVAL_IN_HOURS = 2;
 
     public static void setupAlarm(Context context) {
+
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent alarmIntent = getStartPendingIntent(context);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
-                getTriggerAt(new Date()),
-                NOTIFICATIONS_INTERVAL_IN_HOURS * AlarmManager.INTERVAL_HOUR,
+        alarmManager.set(AlarmManager.RTC_WAKEUP,
+                getTriggerAt(),
                 alarmIntent);
     }
 
@@ -35,32 +35,58 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
         if (ACTION_START_NOTIFICATION_SERVICE.equals(action)) {
             Log.i(getClass().getSimpleName(), "onReceive from alarm, starting notification service");
             serviceIntent = NotificationIntentService.createIntentStartNotificationService(context);
-        } else if (ACTION_DELETE_NOTIFICATION.equals(action)) {
-            Log.i(getClass().getSimpleName(), "onReceive delete notification action, starting notification service to handle delete");
-            serviceIntent = NotificationIntentService.createIntentDeleteNotification(context);
         }
-
         if (serviceIntent != null) {
             startWakefulService(context, serviceIntent);
         }
     }
 
-    private static long getTriggerAt(Date now) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(now);
-        //calendar.add(Calendar.HOUR, NOTIFICATIONS_INTERVAL_IN_HOURS);
-        return calendar.getTimeInMillis();
+    private static long getTriggerAt() {
+        //set de l'heure de la notification
+        Calendar now = Calendar.getInstance();
+        System.out.println(now.getTime());
+        int jour = now.get(Calendar.DAY_OF_MONTH);
+        int heure = now.get(Calendar.HOUR_OF_DAY);
+        int minute = now.get(Calendar.MINUTE);
+        System.out.println(jour);
+        if(heure == 20 && minute <= 5) {
+            now.set(Calendar.HOUR_OF_DAY, 20);
+            now.set(Calendar.MINUTE, minute + 1);
+        }
+        else if(heure > 20){
+            now.set(Calendar.DAY_OF_MONTH, jour+1);
+            now.set(Calendar.HOUR_OF_DAY, 7);
+            now.set(Calendar.MINUTE, 0);
+        }
+        else if(heure < 7){
+            now.set(Calendar.HOUR_OF_DAY, 7);
+            now.set(Calendar.MINUTE, 0);
+        }
+        else if(heure == 7 && minute <= 5){
+            now.set(Calendar.HOUR_OF_DAY, 7);
+            now.set(Calendar.MINUTE, minute+1);
+        }
+        else if(heure < 13){
+            now.set(Calendar.HOUR_OF_DAY, 13);
+            now.set(Calendar.MINUTE, 0);
+        }
+        else if(heure == 13 && minute <= 5){
+            now.set(Calendar.HOUR_OF_DAY, 13);
+            now.set(Calendar.MINUTE, minute+1);
+        }
+        else{
+            now.set(Calendar.HOUR_OF_DAY, 20);
+            now.set(Calendar.MINUTE, 0);
+        }
+        System.out.println(now.get(Calendar.DAY_OF_MONTH));
+        System.out.println(now.get(Calendar.HOUR_OF_DAY));
+        System.out.println(now.get(Calendar.MINUTE));
+        return now.getTimeInMillis();
     }
 
     private static PendingIntent getStartPendingIntent(Context context) {
         Intent intent = new Intent(context, NotificationEventReceiver.class);
         intent.setAction(ACTION_START_NOTIFICATION_SERVICE);
-        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-    }
-
-    public static PendingIntent getDeleteIntent(Context context) {
-        Intent intent = new Intent(context, NotificationEventReceiver.class);
-        intent.setAction(ACTION_DELETE_NOTIFICATION);
         return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 

@@ -41,49 +41,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*
-        createNotificationChannel();
-
-        Intent intent = new Intent(this,  NotificationMessage.class);
-        PendingIntent penintent = PendingIntent.getService(this, 0, intent, 0);
-        AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        //set de l'heure de la notification
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 16);
-        cal.set(Calendar.MINUTE, 31);
-        cal.set(Calendar.SECOND, 0);
-
-        //set timer as a RTC Wakeup to alarm manager object
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, penintent);
-
-         */
-
         //replaceFragment(new Planning());
-
-        /**
-        Button button = findViewById(R.id.button);
-
-        button.setOnClickListener(v -> {
-            Toast.makeText(this, "Reminder Set!", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(MainActivity.this, NotificationMessage.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-            long timeAtButtonClick = System.currentTimeMillis();
-
-            long tenSecondsInMillis = 1000*10;
-
-            alarmManager.set(AlarmManager.RTC_WAKEUP,
-                    timeAtButtonClick + tenSecondsInMillis,
-                    pendingIntent);
-
-
-        });
-         */
 
         binding = findViewById(R.id.bottomMenu);
         binding.getMenu().getItem(1).setChecked(true);
@@ -109,20 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .replace(R.id.frameLayout, fragment)
                 .commit();
-    }
-
-    private void createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Repas";
-            String description = "Rappel de manger !";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("channel Ambrosia", name, importance);
-            channel.setDescription(description);
-
-            //cannot be changed after
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 
     public void onSendNotificationsButtonClick(View view) {
