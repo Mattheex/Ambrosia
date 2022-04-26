@@ -1,6 +1,8 @@
 package com.example.ambrosia.planning.Day;
 
-public class DayItems {
+import java.util.Observable;
+
+public class DayItems extends Observable {
     private String dej;
     private String midi;
     private String gouter;
@@ -11,6 +13,15 @@ public class DayItems {
         this.day = day;
     }
 
+    public void setRepas(String dej, String midi, String gouter, String diner){
+        this.dej = dej;
+        this.midi = midi;
+        this.gouter = gouter;
+        this.diner = diner;
+        setChanged();
+        notifyObservers();
+    }
+
     public DayEnum getDay() {
         return day;
     }
@@ -19,31 +30,15 @@ public class DayItems {
         return dej;
     }
 
-    public void setDej(String dej) {
-        this.dej = dej;
-    }
-
     public String getMidi() {
         return midi;
-    }
-
-    public void setMidi(String midi) {
-        this.midi = midi;
     }
 
     public String getDiner() {
         return diner;
     }
 
-    public void setDiner(String diner) {
-        this.diner = diner;
-    }
-
     public String getGouter() {
         return gouter;
-    }
-
-    public void setGouter(String gouter) {
-        this.gouter = gouter;
     }
 }
