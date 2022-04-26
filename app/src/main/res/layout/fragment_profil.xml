@@ -35,7 +35,7 @@
             android:orientation="horizontal"
             android:text="Nom :"
             android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:textSize="27sp" />
 
         <TextView
             android:id="@+id/mail"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="Mail :"
             android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:textSize="27sp" />
 
         <TextView
             android:id="@+id/age"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Age :"
             android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:textSize="27sp" />
 
         <TextView
             android:id="@+id/sexe"
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:text="Sexe :"
             android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:textSize="27sp" />
 
         <TextView
             android:id="@+id/programme"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:text="Programme :"
             android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:textSize="27sp" />
 
         <TextView
             android:id="@+id/allergie"
@@ -75,7 +75,7 @@
             android:layout_height="wrap_content"
             android:text="Allergie :"
             android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:textSize="27sp" />
 
         <TextView
             android:id="@+id/poids"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:text="poids :"
             android:textColor="@color/black"
-            android:textSize="30sp" />
+            android:textSize="27sp" />
 
     </LinearLayout>
 

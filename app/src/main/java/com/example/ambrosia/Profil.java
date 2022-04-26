@@ -78,12 +78,12 @@ public class Profil extends Fragment {
                 Map<String, Object> usere = new HashMap<>();
                 usere.put("first", "valentin");
                 usere.put("last", "nasone");
-                usere.put("born", 2001);
+                usere.put("age", 20);
                 usere.put("password", "bonjour");
                 usere.put("mail","valenti.nasone@gmail.com");
                 usere.put("sexe", "masculin");
 
-                db.collection("user").document("valentin").set(usere);
+                db.collection("user").document("Valentin").set(usere);
             }});
 
 
@@ -103,7 +103,7 @@ public class Profil extends Fragment {
                                     User user = document.toObject(User.class);
                                     nom.setText("Nom : " + user.getFirst());
                                     mail.setText("Mail : " + user.getMail());
-                                    age.setText("Age : " + user.getBorn());
+                                    age.setText("Age : " + user.getAge());
                                     sexe.setText("Sexe : " + user.getSexe());
                                 }else {
                                     // nom.setText("Veuillez rentrer le bon mot de passe");
