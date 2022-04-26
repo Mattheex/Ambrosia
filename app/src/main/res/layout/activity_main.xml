@@ -15,12 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="10">
 
-        <Button
-            android:id="@+id/sendNotifications"
-            android:onClick="onSendNotificationsButtonClick"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start Sending Notifications" /> />
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

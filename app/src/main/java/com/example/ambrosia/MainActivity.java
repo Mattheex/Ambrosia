@@ -41,50 +41,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*
-        createNotificationChannel();
-
-        Intent intent = new Intent(this,  NotificationMessage.class);
-        PendingIntent penintent = PendingIntent.getService(this, 0, intent, 0);
-        AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        //set de l'heure de la notification
-
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, 16);
-        cal.set(Calendar.MINUTE, 31);
-        cal.set(Calendar.SECOND, 0);
-
-        //set timer as a RTC Wakeup to alarm manager object
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),AlarmManager.INTERVAL_DAY, penintent);
-
-         */
-
+        sendNotification();
         //replaceFragment(new Planning());
-
-        /**
-        Button button = findViewById(R.id.button);
-
-        button.setOnClickListener(v -> {
-            Toast.makeText(this, "Reminder Set!", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(MainActivity.this, NotificationMessage.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-            long timeAtButtonClick = System.currentTimeMillis();
-
-            long tenSecondsInMillis = 1000*10;
-
-            alarmManager.set(AlarmManager.RTC_WAKEUP,
-                    timeAtButtonClick + tenSecondsInMillis,
-                    pendingIntent);
-
-
-        });
-         */
 
         binding = findViewById(R.id.parametreMenu);
         binding.getMenu().getItem(1).setChecked(true);
@@ -112,8 +70,17 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
-    public void onSendNotificationsButtonClick(View view) {
-        NotificationEventReceiver.setupAlarm(getApplicationContext());
+    // au lancement de l'appli
+    private void sendNotification() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.e(getClass().getSimpleName(),"NOTIFICATION");
+            NotificationEventReceiver.setupAlarm(getApplicationContext());
+        }).start();
     }
 
     @Override
