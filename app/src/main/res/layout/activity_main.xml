@@ -20,7 +20,7 @@
             android:onClick="onSendNotificationsButtonClick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start Sending Notifications Every 2 Hours!" /> />
+            android:text="Start Sending Notifications" /> />
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         });
          */
 
-        binding = findViewById(R.id.parametreMenu);
+        binding = findViewById(R.id.bottomMenu);
         binding.getMenu().getItem(1).setChecked(true);
         binding.setOnNavigationItemSelectedListener(item -> {
             Log.d("switch", String.valueOf(item.getItemId()));
@@ -110,20 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .replace(R.id.frameLayout, fragment)
                 .commit();
-    }
-
-    private void createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Repas";
-            String description = "Rappel de manger !";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel("channel Ambrosia", name, importance);
-            channel.setDescription(description);
-
-            //cannot be changed after
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
     }
 
     public void onSendNotificationsButtonClick(View view) {
