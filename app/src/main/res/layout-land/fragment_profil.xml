@@ -5,25 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".Profil">
 
 
-    <TextView
-        android:id="@+id/profil"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/purple_200"
-        android:text="@string/profil"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="@dimen/titre_profil_size" />
-
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="557dp"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -61,6 +49,32 @@
             android:textColor="@color/black"
             android:textSize="@dimen/sex_profil_size" />
 
+        <Button
+            android:id="@+id/recuperation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Récuperer un profil type" />
+
+        <Button
+            android:id="@+id/connection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="0dp"
+            android:text="Se connecter à un profil" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="200dp"
+        android:orientation="vertical">
+
+
         <TextView
             android:id="@+id/programme"
             android:layout_width="wrap_content"
@@ -85,39 +99,23 @@
             android:textColor="@color/black"
             android:textSize="@dimen/poids_profil_size" />
 
+        <ImageButton
+            android:id="@+id/creationProfil"
+            android:layout_width="88dp"
+            android:layout_height="96dp"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_menu_preferences" />
+
+        <Button
+            android:id="@+id/creation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="Créer un profil type" />
+
+
     </LinearLayout>
-
-
-    <ImageButton
-        android:id="@+id/creationProfil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:src="@android:drawable/ic_menu_preferences" />
-
-    <Button
-        android:id="@+id/creation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Créer un profil type" />
-
-    <Button
-        android:id="@+id/recuperation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Récuperer un profil type" />
-
-    <Button
-        android:id="@+id/connection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="0dp"
-        android:text="Se connecter à un profil" />
 
 
 </LinearLayout>
