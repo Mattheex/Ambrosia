@@ -1,7 +1,7 @@
 package com.example.ambrosia.programmes;
 
 public class PertePoids extends Programme {
-    public Fitness(){
+    public PertePoids(){
         super();
         nom = "PertePoids";
         jours = 30;
