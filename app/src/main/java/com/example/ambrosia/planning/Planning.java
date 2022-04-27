@@ -8,6 +8,7 @@ import static com.example.ambrosia.planning.Day.DayEnum.Mercredi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,11 @@ import com.example.ambrosia.planning.Day.DayItems;
 import com.example.ambrosia.planning.Details.Details;
 import com.example.ambrosia.planning.Week.WeekAdapter;
 import com.example.ambrosia.planning.Week.WeekItems;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +48,11 @@ public class Planning extends Fragment implements Observer {
     WeekAdapter weekAdapter;
     LinearLayout linearLayout;
     List<DayItems> dayItemsList = new ArrayList<>();
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    int number = 0;
+
+    TextView motivation;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -92,6 +103,11 @@ public class Planning extends Fragment implements Observer {
             intent.putExtra("food", food);
             startActivity(intent);
         });
+
+        motivation = (TextView) view.findViewById(R.id.motivQuoteText);
+
+
+        newMotivatiion();
 
 
     }
@@ -220,5 +236,30 @@ public class Planning extends Fragment implements Observer {
             textView.setTextSize(20);
             textView.setTextColor(Color.parseColor((i == index) ? "#000000" : "#616161"));
         }
+    }
+
+    public void newMotivatiion(){
+
+        number += 1;
+        DocumentReference docRef = db.collection("Motivation").document(String.valueOf(number));
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        motivation.setText(document.getData().get("Phrase").toString());
+                        Log.d("MotivationText", "DocumentSnapshot data: " + document.getData());
+                    } else {
+                        number = 0;
+                        Log.d("MotivationText", "No such document");
+                    }
+                } else {
+                    Log.d("MotivationText", "get failed with ", task.getException());
+                }
+            }
+        });
+
+
     }
 }
