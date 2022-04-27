@@ -130,17 +130,84 @@
         app:layout_constraintTop_toTopOf="@id/mot_de_passe"
         tools:layout_editor_absoluteX="0dp" />
 
-    <Button
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choix du régime"
+            android:layout_marginTop="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.39" />
+
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/menus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <EditText
+            android:id="@+id/actual_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginTop="60dp"
+            android:ems="10"
+            android:layout_gravity="center"
+            android:hint="Poids Actuel"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+
+        <EditText
+            android:id="@+id/wanted_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="28dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:layout_gravity="center"
+            android:hint="Poids souhaité"
+            android:inputType="number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/actual_weight" />
+
+
+        <ImageView
+            android:id="@+id/finReg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/ic_outline_calendar_today_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wanted_weight" />
+
+        <Button
         android:id="@+id/buttonValidation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Validation"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_gravity="center"
+            android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         app:layout_constraintVertical_bias="0.734" />
+
+
 
     </LinearLayout>
 
