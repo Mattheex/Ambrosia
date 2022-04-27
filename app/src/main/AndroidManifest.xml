@@ -21,7 +21,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,7 +39,8 @@
             android:exported="false" />
 
         <receiver android:name=".broadcast_receivers.NotificationEventReceiver" />
-        <receiver android:name=".broadcast_receivers.NotificationServiceStarterReceiver"
+        <receiver
+            android:name=".broadcast_receivers.NotificationServiceStarterReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

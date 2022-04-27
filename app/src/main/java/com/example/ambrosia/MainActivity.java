@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FrameLayout frameLayout;
-    TextView motivation = (TextView) findViewById(R.id.motivQuoteText);
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -48,9 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         replaceFragment(new Planning());
-
-
-        newMotivation();
 
 
 
@@ -109,8 +105,5 @@ public class MainActivity extends AppCompatActivity {
         // handleIntent();
     }
 
-    private void newMotivation(){
-        motivation.setText("bonjour");
 
-    }
 }

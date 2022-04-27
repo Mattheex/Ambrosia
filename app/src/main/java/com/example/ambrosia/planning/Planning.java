@@ -5,15 +5,17 @@ import static com.example.ambrosia.planning.Day.DayEnum.Lundi;
 import static com.example.ambrosia.planning.Day.DayEnum.Mardi;
 import static com.example.ambrosia.planning.Day.DayEnum.Mercredi;
 
-import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,10 +24,18 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ambrosia.R;
 import com.example.ambrosia.planning.Day.DayAdapter;
+import com.example.ambrosia.planning.Day.DayEnum;
 import com.example.ambrosia.planning.Day.DayItems;
 import com.example.ambrosia.planning.Details.Details;
 import com.example.ambrosia.planning.Week.WeekAdapter;
 import com.example.ambrosia.planning.Week.WeekItems;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,26 +52,27 @@ public class Planning extends Fragment implements Observer {
     WeekAdapter weekAdapter;
     LinearLayout linearLayout;
     List<DayItems> dayItemsList = new ArrayList<>();
+    List<WeekItems> weekItemsList = new ArrayList<>();
+    ViewPager2 viewPager2;
+    String url = "https://www.foodrepo.org/api/v3/products?name_translations=lindt";
+    TextView motivation;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        listDays();
-        List<WeekItems> weekItemsList = listWeeks();
-        dayAdapter = new DayAdapter(dayItemsList);
+        viewPager2 = view.findViewById(R.id.pager2);
+        OkHttpHandler okHttpHandler = new OkHttpHandler();
+        okHttpHandler.execute(url);
+        //List<WeekItems> weekItemsList = listWeeks();
+
         weekAdapter = new WeekAdapter(weekItemsList);
         linearLayout = view.findViewById(R.id.linearLayoutDays);
-
-
-        ViewPager2 viewPager2 = view.findViewById(R.id.pager2);
-
-        viewPager2.setAdapter(dayAdapter);
-        setupDaysIndicator();
-        setCurrentDay(0);
+        this.motivation = (TextView) view.findViewById(R.id.motivQuoteText);
 
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
+                //Log.d("position", String.valueOf(position));
                 if (day) {
                     setCurrentDay(position);
                 } else {
@@ -86,13 +97,24 @@ public class Planning extends Fragment implements Observer {
                 button.setText("Weeks");
             }
         });
-        view.findViewById(R.id.motivQuoteText).setOnClickListener(view2 -> {
-            Food food = new Food("Nutella", 300);
-            Intent intent = new Intent(view2.getContext(), Details.class);
-            intent.putExtra("food", food);
-            startActivity(intent);
-        });
 
+        Food food = new Food("nutella", 450);
+        view.findViewById(R.id.motivQuoteText).setOnClickListener(view2 -> {
+            Fragment detail = new Details();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("food", food);
+            detail.setArguments(bundle);
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.frameLayout, detail)
+                    .addToBackStack(null)
+                    .commit();
+        });
+        /*view.findViewById(R.id.daysLayout).setOnClickListener(view3 -> {
+            TextView textView = view3.findViewById(R.id.descriptionDej);
+            Toast.makeText(getContext(),textView.getText(),Toast.LENGTH_LONG).show();
+            //view3.findViewWithTag(R.id.);
+        });*/
 
     }
 
@@ -102,54 +124,17 @@ public class Planning extends Fragment implements Observer {
         return inflater.inflate(R.layout.fragment_planning, container, false);
     }
 
-    private void listDays() {
-        //List<DayItems> dayItemsList = new ArrayList<>();
-
-        DayItems dayItems = new DayItems(Lundi);
-        dayItems.addObserver(this);
-        dayItems.setRepas("Nutella, pain de mie, pomme",
-                "Poisson pané, lentilles",
-                "clémentine, thé",
-                "salade, tomate, mais");
-
-        dayItems = new DayItems(Mardi);
-        dayItems.addObserver(this);
-        dayItems.setRepas("pom'pote",
-                "burger sale",
-                "tartine confiture fraise",
-                "ptit salade");
-
-        dayItems = new DayItems(Mercredi);
-        dayItems.addObserver(this);
-        dayItems.setRepas("oeufs",
-                "wraps thon",
-                "verre de lait",
-                "tomate cerise");
-
-        dayItems = new DayItems(Jeudi);
-        dayItems.addObserver(this);
-        dayItems.setRepas("Nutella, pain de mie, pomme",
-                "Poisson pané, lentilles",
-                "clémentine, thé",
-                "salade, tomate, mais");
-    }
+    private WeekItems weekItems = new WeekItems();
 
     @Override
     public void update(Observable observable, Object o) {
-        this.dayItemsList.add((DayItems) observable);
-    }
-
-    private List<WeekItems> listWeeks() {
-        List<WeekItems> weekItemsList = new ArrayList<>();
-        WeekItems weekItems = new WeekItems(Arrays.asList(2, 3, 4, 5));
-        weekItemsList.add(weekItems);
-        weekItems = new WeekItems(Arrays.asList(2, 9, 4, 15));
-        weekItemsList.add(weekItems);
-        weekItems = new WeekItems(Arrays.asList(37, 40, 18, 5));
-        weekItemsList.add(weekItems);
-        weekItems = new WeekItems(Arrays.asList(2, 80, 160, 550));
-        weekItemsList.add(weekItems);
-        return weekItemsList;
+        DayItems dayItems = (DayItems) observable;
+        this.dayItemsList.add(dayItems);
+        weekItems.add(dayItems.sumKcal());
+        if(weekItems.getSize() == 3){
+            this.weekItemsList.add(weekItems);
+            weekItems = new WeekItems();
+        }
     }
 
     private void setupDaysIndicator() {
@@ -184,41 +169,95 @@ public class Planning extends Fragment implements Observer {
     }
 
     private void setCurrentDay(int index) {
-        int min, max;
-        if (index == 0) {
-            min = index;
-            max = index + 2;
-        } else if (index == dayAdapter.getItemCount() - 1) {
-            min = index - 2;
-            max = index;
-        } else {
-            min = index - 1;
-            max = index + 1;
-        }
-        for (int i = min; i <= max; i++) {
-            TextView textView = (TextView) linearLayout.getChildAt(i - min);
+        int[] limites = findIndex(index,dayAdapter.getItemCount());
+        for (int i = limites[0]; i <= limites[1]; i++) {
+            TextView textView = (TextView) linearLayout.getChildAt(i - limites[0]);
             textView.setText(dayAdapter.getDay(i).toString());
             textView.setTextColor(Color.parseColor((i == index) ? "#000000" : "#616161"));
         }
     }
 
     private void setCurrentWeek(int index) {
+        int[] limites = findIndex(index,weekAdapter.getItemCount());
+        for (int i = limites[0]; i <= limites[1]; i++) {
+            TextView textView = (TextView) linearLayout.getChildAt(i - limites[0]);
+            textView.setText("Week " + i);
+            textView.setTextSize(20);
+            textView.setTextColor(Color.parseColor((i == index) ? "#000000" : "#616161"));
+        }
+    }
+    private void newMotivation(){
+        motivation.setText("bonjour");
+    }
+
+    private int[] findIndex(int index, int size){
         int min, max;
         if (index == 0) {
             min = index;
             max = index + 2;
-        } else if (index == weekAdapter.getItemCount() - 1) {
+        } else if (index == size - 1) {
             min = index - 2;
             max = index;
         } else {
             min = index - 1;
             max = index + 1;
         }
-        for (int i = min; i <= max; i++) {
-            TextView textView = (TextView) linearLayout.getChildAt(i - min);
-            textView.setText("Week " + i);
-            textView.setTextSize(20);
-            textView.setTextColor(Color.parseColor((i == index) ? "#000000" : "#616161"));
+        return new int[]{min,max};
+    }
+
+    public class OkHttpHandler extends AsyncTask {
+
+        OkHttpClient client = new OkHttpClient();
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            Request request = new Request.Builder()
+                    .url((String) objects[0])
+                    .header("User-Agent", "Ambrosia")
+                    .header("Accept", "application/json")
+                    .header("Authorization", "Token token=0773fa9ce6eafe47256f9329542c6e32")
+                    .build();
+            try {
+                Response response = client.newCall(request).execute();
+                return response.body().string();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            try {
+                JSONObject jsonObject = new JSONObject(String.valueOf(o));
+                JSONArray jsonArray = jsonObject.getJSONArray("data");
+                List<Food> repas = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    jsonObject = jsonArray
+                            .getJSONObject(i)
+                            .getJSONObject("name_translations");
+                    if (jsonObject.has("fr")) {
+                        String name = jsonObject.getString("fr");
+                        repas.add(new Food(name,10));
+                    }
+                }
+                int k = 0;
+                for (int i = 0; i < 7; i++) {
+                    DayItems dayItems = new DayItems(DayEnum.values()[i]);
+                    dayItems.addObserver(Planning.this);
+                    dayItems.setRepas(repas.get(k++ % repas.size()),
+                            repas.get(k++ % repas.size()),
+                            repas.get(k++ % repas.size()),
+                            repas.get(k++ % repas.size()));
+                }
+                dayAdapter = new DayAdapter(dayItemsList);
+                viewPager2.setAdapter(dayAdapter);
+                setupDaysIndicator();
+                setCurrentDay(0);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
