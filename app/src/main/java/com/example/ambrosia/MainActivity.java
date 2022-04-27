@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
     Handler handler = new Handler();
     Runnable runnable;
-    int delay = 10000;
+    int delay = 7200000;
 
     @SuppressLint("NonConstantResourceId")
     @Override
