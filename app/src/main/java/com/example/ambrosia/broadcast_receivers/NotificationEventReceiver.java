@@ -75,8 +75,8 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
             now.set(Calendar.MINUTE, minute+1);
         }
         else if(heure <= 16){
-            now.set(Calendar.HOUR_OF_DAY, 15);
-            now.set(Calendar.MINUTE, 27);
+            now.set(Calendar.HOUR_OF_DAY, 16);
+            now.set(Calendar.MINUTE, 30);
             if(heure == 16 && minute > 30) {
                 now.set(Calendar.MINUTE, minute+1);
             }

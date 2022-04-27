@@ -84,7 +84,15 @@ public class MainActivity extends AppCompatActivity {
 
     // au lancement de l'appli
     private void sendNotification() {
-        NotificationEventReceiver.setupAlarm(getApplicationContext());
+        new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.e(getClass().getSimpleName(),"NOTIFICATION");
+            NotificationEventReceiver.setupAlarm(getApplicationContext());
+        }).start();
     }
 
     @Override
