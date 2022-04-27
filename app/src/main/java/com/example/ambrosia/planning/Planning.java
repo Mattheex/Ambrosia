@@ -5,6 +5,7 @@ import static com.example.ambrosia.planning.Day.DayEnum.Lundi;
 import static com.example.ambrosia.planning.Day.DayEnum.Mardi;
 import static com.example.ambrosia.planning.Day.DayEnum.Mercredi;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,25 +23,29 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.ambrosia.R;
 import com.example.ambrosia.planning.Day.DayAdapter;
 import com.example.ambrosia.planning.Day.DayItems;
+import com.example.ambrosia.planning.Details.Details;
 import com.example.ambrosia.planning.Week.WeekAdapter;
 import com.example.ambrosia.planning.Week.WeekItems;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Planning extends Fragment {
+public class Planning extends Fragment implements Observer {
     boolean day = true;
     DayAdapter dayAdapter;
     WeekAdapter weekAdapter;
     LinearLayout linearLayout;
+    List<DayItems> dayItemsList = new ArrayList<>();
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        List<DayItems> dayItemsList = listDays();
+        listDays();
         List<WeekItems> weekItemsList = listWeeks();
         dayAdapter = new DayAdapter(dayItemsList);
         weekAdapter = new WeekAdapter(weekItemsList);
@@ -81,6 +86,14 @@ public class Planning extends Fragment {
                 button.setText("Weeks");
             }
         });
+        view.findViewById(R.id.motivQuoteText).setOnClickListener(view2 -> {
+            Food food = new Food("Nutella", 300);
+            Intent intent = new Intent(view2.getContext(), Details.class);
+            intent.putExtra("food", food);
+            startActivity(intent);
+        });
+
+
     }
 
     @Override
@@ -89,38 +102,41 @@ public class Planning extends Fragment {
         return inflater.inflate(R.layout.fragment_planning, container, false);
     }
 
-    private List<DayItems> listDays() {
-        List<DayItems> dayItemsList = new ArrayList<>();
+    private void listDays() {
+        //List<DayItems> dayItemsList = new ArrayList<>();
 
         DayItems dayItems = new DayItems(Lundi);
-        dayItems.setDej("Nutella, pain de mie, pomme");
-        dayItems.setMidi("Poisson pané, lentilles");
-        dayItems.setGouter("clémentine, thé");
-        dayItems.setDiner("salade, tomate, mais");
-        dayItemsList.add(dayItems);
+        dayItems.addObserver(this);
+        dayItems.setRepas("Nutella, pain de mie, pomme",
+                "Poisson pané, lentilles",
+                "clémentine, thé",
+                "salade, tomate, mais");
 
         dayItems = new DayItems(Mardi);
-        dayItems.setDej("pom'pote");
-        dayItems.setMidi("burger sale");
-        dayItems.setGouter("tartine confiture fraise");
-        dayItems.setDiner("ptit salade");
-        dayItemsList.add(dayItems);
+        dayItems.addObserver(this);
+        dayItems.setRepas("pom'pote",
+                "burger sale",
+                "tartine confiture fraise",
+                "ptit salade");
 
         dayItems = new DayItems(Mercredi);
-        dayItems.setDej("oeufs");
-        dayItems.setMidi("wraps thon");
-        dayItems.setGouter("verre de lait");
-        dayItems.setDiner("tomate cerise");
-        dayItemsList.add(dayItems);
+        dayItems.addObserver(this);
+        dayItems.setRepas("oeufs",
+                "wraps thon",
+                "verre de lait",
+                "tomate cerise");
 
         dayItems = new DayItems(Jeudi);
-        dayItems.setDej("Nutella, pain de mie, pomme");
-        dayItems.setMidi("Poisson pané, lentilles");
-        dayItems.setGouter("clémentine, thé");
-        dayItems.setDiner("salade, tomate, mais");
-        dayItemsList.add(dayItems);
+        dayItems.addObserver(this);
+        dayItems.setRepas("Nutella, pain de mie, pomme",
+                "Poisson pané, lentilles",
+                "clémentine, thé",
+                "salade, tomate, mais");
+    }
 
-        return dayItemsList;
+    @Override
+    public void update(Observable observable, Object o) {
+        this.dayItemsList.add((DayItems) observable);
     }
 
     private List<WeekItems> listWeeks() {
