@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FrameLayout frameLayout;
+    Handler handler = new Handler();
+    Runnable runnable;
+    int delay = 7200000;
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -48,26 +52,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         replaceFragment(new Planning());
 
-
-
-            binding = findViewById(R.id.parametreMenu);
-            binding.getMenu().getItem(1).setChecked(true);
-            binding.setOnNavigationItemSelectedListener(item -> {
-                Log.d("switch", String.valueOf(item.getItemId()));
-                switch (item.getItemId()) {
-                    case R.id.nextPage:
-                        replaceFragment(new Profil());
-                        break;
-                    case R.id.previous:
-                        replaceFragment(new Forum());
-                        break;
-                    case R.id.planning:
-                        replaceFragment(new Planning());
-                        break;
-                }
-                return true;
-            });
-            sendNotification();
+        binding = findViewById(R.id.parametreMenu);
+        binding.getMenu().getItem(1).setChecked(true);
+        binding.setOnNavigationItemSelectedListener(item -> {
+            Log.d("switch", String.valueOf(item.getItemId()));
+            switch (item.getItemId()) {
+                case R.id.nextPage:
+                    replaceFragment(new Profil());
+                    break;
+                case R.id.previous:
+                    replaceFragment(new Forum());
+                    break;
+                case R.id.planning:
+                    replaceFragment(new Planning());
+                    break;
+            }
+            return true;
+        });
+        sendNotification();
 
     }
 
@@ -105,5 +107,25 @@ public class MainActivity extends AppCompatActivity {
         // handleIntent();
     }
 
+    @Override
+    protected void onResume() {
+        handler.postDelayed(runnable = new Runnable() {
+            public void run() {
+                handler.postDelayed(runnable, delay);
+                // motivation à mettre
+                /*
+                Toast.makeText(MainActivity.this, "This method is run every 10 seconds",
+                        Toast.LENGTH_SHORT).show();
 
+                 */
+            }
+        }, delay);
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable); //stop handler when activity not visible super.onPause();
+    }
 }
