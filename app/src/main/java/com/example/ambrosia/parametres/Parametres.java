@@ -28,19 +28,19 @@ public class Parametres extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
-        replaceFragment(new ParametreProfil());
+        replaceFragment(new ParametreProfilTer());
         binding = findViewById(R.id.parametreMenu);
-        binding.getMenu().getItem(0).setChecked(true);
+        binding.getMenu().getItem(1).setChecked(true);
         binding.setOnNavigationItemSelectedListener(item -> {
             Log.d("switch", String.valueOf(item.getItemId()));
             switch (item.getItemId()) {
-                case R.id.infoSecu:
+                case R.id.connexion:
                     replaceFragment(new ParametreProfilBis());
                     break;
-                case R.id.infoPerso:
+                case R.id.inscription:
                     replaceFragment(new ParametreProfil());
                     break;
-                case R.id.infoRegime:
+                case R.id.home:
                     replaceFragment(new ParametreProfilTer());
                     break;
             }

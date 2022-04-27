@@ -3,7 +3,9 @@ package com.example.ambrosia.parametres;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +22,10 @@ import android.widget.TextView;
 
 import com.example.ambrosia.R;
 import com.example.ambrosia.Users.User;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
@@ -30,11 +35,12 @@ public class ParametreProfil extends Fragment {
     public Calendar calendar;
     private DatePicker datePicker;
     public User user = new User();
+    AlertDialog.Builder builder;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
         View myView = inflater.inflate(R.layout.fragment_profile_name, container, false);
         ImageView button = (ImageView) myView.findViewById(R.id.imageAnniv);
         button.setOnClickListener(new View.OnClickListener() {
@@ -70,15 +76,23 @@ public class ParametreProfil extends Fragment {
                 String email = emails.getText().toString();
                 String mdp = mdps.getText().toString();
 
-                CollectionReference userRef = db.collection("user");
-
-                if (userRef.whereEqualTo("mail",email) == null){
+                if (email.length() >= 10){
                     user.setMail(email);
                     user.setFirst(first);
                     user.setLast(last);
                     user.setPassword(mdp);
                     db.collection("user").document(user.getMail()).set(user);
                 }else{
+                    builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Le mail est déja utilisé, veuillez en choisir un autre.")
+                            .setCancelable(false)
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.setTitle("ERREUR LORS DE L'INSCRIPTION");
+                    alert.show();
                     Log.d("Erreur", "Le profil a dejà été crée ");
                 }
 
@@ -88,5 +102,16 @@ public class ParametreProfil extends Fragment {
         });
 
         return myView;
+    }
+
+
+    public void recupererProfil(String emailss){
+        DocumentReference docRef = db.collection("user").document(emailss);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+            }
+        });
     }
 }
