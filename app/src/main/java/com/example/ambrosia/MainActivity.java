@@ -19,7 +19,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 //import com.example.ambrosia.planning.Planning;
+import com.example.ambrosia.Users.User;
 import com.example.ambrosia.broadcast_receivers.NotificationEventReceiver;
+import com.example.ambrosia.parametres.Parametres;
 import com.example.ambrosia.planning.Planning;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,6 +33,7 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView binding;
+    User user;
     MaterialToolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -40,27 +43,30 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         replaceFragment(new Planning());
 
-        binding = findViewById(R.id.parametreMenu);
-        binding.getMenu().getItem(1).setChecked(true);
-        binding.setOnNavigationItemSelectedListener(item -> {
-            Log.d("switch", String.valueOf(item.getItemId()));
-            switch (item.getItemId()) {
-                case R.id.nextPage:
-                    replaceFragment(new Profil());
-                    break;
-                case R.id.previous:
-                    replaceFragment(new Forum());
-                    break;
-                case R.id.planning:
-                    replaceFragment(new Planning());
-                    break;
-            }
-            return true;
-        });
-        sendNotification();
+
+
+            binding = findViewById(R.id.parametreMenu);
+            binding.getMenu().getItem(1).setChecked(true);
+            binding.setOnNavigationItemSelectedListener(item -> {
+                Log.d("switch", String.valueOf(item.getItemId()));
+                switch (item.getItemId()) {
+                    case R.id.nextPage:
+                        replaceFragment(new Profil());
+                        break;
+                    case R.id.previous:
+                        replaceFragment(new Forum());
+                        break;
+                    case R.id.planning:
+                        replaceFragment(new Planning());
+                        break;
+                }
+                return true;
+            });
+            sendNotification();
 
     }
 
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Log.e(getClass().getSimpleName(),"NOTIFICATION");
-            NotificationEventReceiver.setupAlarm(getApplicationContext());
+            // NotificationEventReceiver.setupAlarm(getApplicationContext());
         }).start();
     }
 
