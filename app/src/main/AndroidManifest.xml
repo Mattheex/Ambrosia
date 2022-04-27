@@ -15,20 +15,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Ambrosia">
+
         <activity
             android:name=".parametres.Parametres"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
         <activity
             android:name=".MainActivity"
+            android:launchMode="singleTop"
             android:exported="true">
         </activity>
+
         <activity android:name=".planning.Details.Details" />
 
         <service
@@ -45,10 +48,6 @@
                 <action android:name="android.intent.action.TIME_SET" />
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".NotificationActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
 
     </application>
 

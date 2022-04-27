@@ -10,13 +10,11 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.legacy.content.WakefulBroadcastReceiver;
 
 import com.example.ambrosia.Channel;
-import com.example.ambrosia.NotificationActivity;
+import com.example.ambrosia.MainActivity;
 import com.example.ambrosia.R;
-import com.example.ambrosia.broadcast_receivers.NotificationEventReceiver;
 
 import java.util.Calendar;
 
@@ -57,17 +55,14 @@ public class NotificationIntentService extends IntentService {
         if(heure == 20 && minute <= 5) {
             bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.diner);
         }
-        else if(heure > 20 || heure < 7){
+        else if(heure > 20 || heure < 7 || (heure == 7 && minute <= 5)){
             bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.petitdej);
         }
-        else if(heure == 7 && minute <= 5){
-            bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.petitdej);
-        }
-        else if(heure < 13){
+        else if((heure < 13) || (heure == 13 && minute <= 5)){
             bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.dejeuner);
         }
-        else if(heure == 13 && minute <= 5){
-            bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.dejeuner);
+        else if(heure <= 16){
+            bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.gouter);
         }
         else{
             bitmap = BitmapFactory.decodeResource(this.getResources(), R.drawable.diner);
@@ -76,22 +71,17 @@ public class NotificationIntentService extends IntentService {
     }
 
     private void processStartNotification() {
+        Intent resultIntent = new Intent(this, MainActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, NOTIFICATION_ID, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this, Channel.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ambrosia)
                 .setContentTitle("Rappel repas")
                 .setContentText("C'est l'heure de manger !")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setStyle(new NotificationCompat.BigPictureStyle()
-                .bigPicture(getImage()))
-                .setTimeoutAfter(300000);
-
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                NOTIFICATION_ID,
-                new Intent(this, NotificationActivity.class),
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(pendingIntent);
-
+                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(getImage()))
+                .setTimeoutAfter(300000)
+                .setAutoCancel(true)
+                .setContentIntent(resultPendingIntent);
 
         final NotificationManager manager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(NOTIFICATION_ID, builder.build());

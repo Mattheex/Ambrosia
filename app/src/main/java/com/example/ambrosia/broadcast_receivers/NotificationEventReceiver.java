@@ -20,7 +20,6 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
     private static final String ACTION_START_NOTIFICATION_SERVICE = "ACTION_START_NOTIFICATION_SERVICE";
 
     public static void setupAlarm(Context context) {
-
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent alarmIntent = getStartPendingIntent(context);
         alarmManager.set(AlarmManager.RTC_WAKEUP,
@@ -42,7 +41,8 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
     }
 
     private static long getTriggerAt() {
-        //set de l'heure de la notification
+        //set de l'heure de la notification à différents moments de la journée:
+        //petit-déjeuner, déjeuner, goûter, dîner
         Calendar now = Calendar.getInstance();
         System.out.println(now.getTime());
         int jour = now.get(Calendar.DAY_OF_MONTH);
@@ -73,6 +73,13 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
         else if(heure == 13 && minute <= 5){
             now.set(Calendar.HOUR_OF_DAY, 13);
             now.set(Calendar.MINUTE, minute+1);
+        }
+        else if(heure <= 16){
+            now.set(Calendar.HOUR_OF_DAY, 15);
+            now.set(Calendar.MINUTE, 27);
+            if(heure == 16 && minute > 30) {
+                now.set(Calendar.MINUTE, minute+1);
+            }
         }
         else{
             now.set(Calendar.HOUR_OF_DAY, 20);
