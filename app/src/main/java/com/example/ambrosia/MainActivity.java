@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FrameLayout frameLayout;
+    TextView motivation = (TextView) findViewById(R.id.motivQuoteText);
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -46,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
         replaceFragment(new Planning());
+
+
+        newMotivation();
 
 
 
@@ -79,15 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
     // au lancement de l'appli
     private void sendNotification() {
-        new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Log.e(getClass().getSimpleName(),"NOTIFICATION");
-            // NotificationEventReceiver.setupAlarm(getApplicationContext());
-        }).start();
+        NotificationEventReceiver.setupAlarm(getApplicationContext());
     }
 
     @Override
@@ -102,5 +99,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResumeFragments() {
         super.onResumeFragments();
         // handleIntent();
+    }
+
+    private void newMotivation(){
+        motivation.setText("bonjour");
+
     }
 }
