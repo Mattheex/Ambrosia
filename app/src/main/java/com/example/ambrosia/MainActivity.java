@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sendNotification();
         replaceFragment(new Planning());
 
         binding = findViewById(R.id.parametreMenu);
@@ -61,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         });
+        sendNotification();
+
     }
 
     private void replaceFragment(Fragment fragment) {
