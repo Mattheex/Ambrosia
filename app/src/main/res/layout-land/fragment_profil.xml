@@ -54,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Récuperer un profil type" />
+            android:text="Changer le nom du profil" />
 
         <Button
             android:id="@+id/connection"
@@ -98,14 +98,6 @@
             android:text="poids :"
             android:textColor="@color/black"
             android:textSize="@dimen/poids_profil_size" />
-
-        <ImageButton
-            android:id="@+id/creationProfil"
-            android:layout_width="88dp"
-            android:layout_height="96dp"
-            android:layout_gravity="right"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_preferences" />
 
         <Button
             android:id="@+id/creation"

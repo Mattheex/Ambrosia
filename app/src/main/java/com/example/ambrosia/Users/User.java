@@ -1,10 +1,13 @@
 package com.example.ambrosia.Users;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
 
-public class User {
+public class User implements Parcelable {
 
     private Date born;
     private String first;
@@ -24,6 +27,31 @@ public class User {
         this.sexe = sexe;
         this.age = age;
     }
+
+    protected User(Parcel in) {
+        first = in.readString();
+        last = in.readString();
+        password = in.readString();
+        mail = in.readString();
+        sexe = in.readString();
+        if (in.readByte() == 0) {
+            age = null;
+        } else {
+            age = in.readInt();
+        }
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getFirst() { return first; }
 
@@ -64,4 +92,23 @@ public class User {
         this.age = age;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(first);
+        parcel.writeString(last);
+        parcel.writeString(password);
+        parcel.writeString(mail);
+        parcel.writeString(sexe);
+        if (age == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(age);
+        }
+    }
 }

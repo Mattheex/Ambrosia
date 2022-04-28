@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -35,20 +36,31 @@ import java.util.Objects;
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView binding;
-    User user;
+    public static User user;
     MaterialToolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FrameLayout frameLayout;
+    Bundle bundle = new Bundle();
+    public static int number = (int) (Math.random()*(10-1));
     Handler handler = new Handler();
+    int delay = 100000;
     Runnable runnable;
-    int delay = 7200000;
+
 
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Planning.newMotivatiion();
+
+        user = getIntent().getParcelableExtra("Profil");
+        Toast.makeText(this, "This user is here now" + user.getFirst(),
+        Toast.LENGTH_SHORT).show();
+
+        Log.d("mise a jour profil", user.getFirst());
         setContentView(R.layout.activity_main);
+        bundle.putParcelable("Profil",(Parcelable) user);
         replaceFragment(new Planning());
 
         binding = findViewById(R.id.parametreMenu);
@@ -73,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment) {
+        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.frameLayout, fragment)
@@ -88,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Log.e(getClass().getSimpleName(),"NOTIFICATION");
-            NotificationEventReceiver.setupAlarm(getApplicationContext());
+            // NotificationEventReceiver.setupAlarm(getApplicationContext());
         }).start();
     }
 
@@ -107,24 +120,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         handler.postDelayed(runnable = new Runnable() {
             public void run() {
                 handler.postDelayed(runnable, delay);
-                // motivation à mettre
-                /*
-                Toast.makeText(MainActivity.this, "This method is run every 10 seconds",
-                        Toast.LENGTH_SHORT).show();
-
-                 */
+                Planning.newMotivatiion();
+                MainActivity.number += 1;
+                //Toast.makeText(getContext(), "This method is run every 10 seconds",
+                //Toast.LENGTH_SHORT).show();
             }
         }, delay);
         super.onResume();
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         handler.removeCallbacks(runnable); //stop handler when activity not visible super.onPause();
     }
+
 }

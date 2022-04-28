@@ -32,6 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.rpc.PreconditionFailure;
 
 import java.io.Console;
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +46,6 @@ public class Profil extends Fragment {
 
     private String Tag ="Bonjour";
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,8 +53,6 @@ public class Profil extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        ImageButton button = (ImageButton) view.findViewById(R.id.creationProfil);
-        Button buttonCreation = (Button) view.findViewById(R.id.creation);
         Button buttonRecuperation = (Button) view.findViewById(R.id.recuperation);
         Button buttonConnection = (Button) view.findViewById(R.id.connection);
 
@@ -65,26 +63,17 @@ public class Profil extends Fragment {
         TextView poids = (TextView) view.findViewById(R.id.poids);
         TextView nom = (TextView) view.findViewById(R.id.nom);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                System.out.println("clekceldekcel");
-                Intent param = new Intent(getActivity(), Parametres.class);
-                startActivity(param);
-            }});
+        AffichageProfil(nom, mail, age, sexe);
 
 
-        buttonCreation.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Map<String, Object> usere = new HashMap<>();
-                usere.put("first", "valentin");
-                usere.put("last", "nasone");
-                usere.put("age", 20);
-                usere.put("password", "bonjour");
-                usere.put("mail","valenti.nasone@gmail.com");
-                usere.put("sexe", "masculin");
-
-                db.collection("user").document("Valentin").set(usere);
-            }});
+        buttonRecuperation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.user.setFirst(" BALOU DESORMAIS");
+                AffichageProfil(nom, mail, age, sexe);
+                // La on doit changer le nom dans FIREBASE
+            }
+        });
 
 
         buttonConnection.setOnClickListener(new View.OnClickListener() {
@@ -100,11 +89,11 @@ public class Profil extends Fragment {
                             if (document.exists()){
                                 if(document.getData().get("password").toString().equals("bonjour")){
                                     Log.d("Bonjour", "DocumentSnapshot data: " + document.getData());
-                                    User user = document.toObject(User.class);
-                                    nom.setText("Nom : " + user.getFirst());
-                                    mail.setText("Mail : " + user.getMail());
-                                    age.setText("Age : " + user.getAge());
-                                    sexe.setText("Sexe : " + user.getSexe());
+                                    User userz = document.toObject(User.class);
+                                    nom.setText("Nom : " + userz.getFirst());
+                                    mail.setText("Mail : " + userz.getMail());
+                                    age.setText("Age : " + userz.getAge());
+                                    sexe.setText("Sexe : " + userz.getSexe());
                                 }else {
                                     // nom.setText("Veuillez rentrer le bon mot de passe");
 
@@ -124,6 +113,14 @@ public class Profil extends Fragment {
 
 
         return view;
+    }
+
+    public void AffichageProfil(TextView nom, TextView mail, TextView age, TextView sexe){
+        nom.setText("Nom : " + MainActivity.user.getFirst());
+        mail.setText("Mail : " + MainActivity.user.getMail());
+        age.setText("Age : " + MainActivity.user.getAge());
+        sexe.setText("Sexe : " + MainActivity.user.getSexe());
+
     }
 
 }

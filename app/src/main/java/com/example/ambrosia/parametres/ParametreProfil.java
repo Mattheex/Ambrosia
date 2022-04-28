@@ -67,6 +67,7 @@ public class ParametreProfil extends Fragment {
         Button creationProfil = (Button) myView.findViewById(R.id.buttonValidation);
         EditText emails = (EditText) myView.findViewById(R.id.email);
         EditText mdps = (EditText) myView.findViewById(R.id.mot_de_passe);
+        EditText confirmMdps = (EditText) myView.findViewById(R.id.confirm_mdp);
 
         creationProfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +76,9 @@ public class ParametreProfil extends Fragment {
                 String first = firsts.getText().toString();
                 String email = emails.getText().toString();
                 String mdp = mdps.getText().toString();
+                String confirmMdp = confirmMdps.getText().toString();
 
-                if (email.length() >= 10){
+                if (email.length() >= 10 && last.length() >= 2 && first.length() >= 2 && mdp.length() >= 10 && confirmMdp == mdp){
                     user.setMail(email);
                     user.setFirst(first);
                     user.setLast(last);

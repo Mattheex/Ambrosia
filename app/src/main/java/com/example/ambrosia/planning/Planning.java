@@ -8,6 +8,7 @@ import static com.example.ambrosia.planning.Day.DayEnum.Mercredi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.ambrosia.MainActivity;
 import com.example.ambrosia.R;
+import com.example.ambrosia.Users.User;
 import com.example.ambrosia.planning.Day.DayAdapter;
 import com.example.ambrosia.planning.Day.DayItems;
 import com.example.ambrosia.planning.Details.Details;
@@ -38,6 +42,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,19 +53,25 @@ public class Planning extends Fragment implements Observer {
     WeekAdapter weekAdapter;
     LinearLayout linearLayout;
     List<DayItems> dayItemsList = new ArrayList<>();
+    User user;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    int number = 0;
 
-    TextView motivation;
+    static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //static int number = (int) (Math.random()*(10-1));
+    static TextView motivation;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        newMotivatiion();
         listDays();
         List<WeekItems> weekItemsList = listWeeks();
         dayAdapter = new DayAdapter(dayItemsList);
         weekAdapter = new WeekAdapter(weekItemsList);
         linearLayout = view.findViewById(R.id.linearLayoutDays);
+
+        // user = this.getArguments().getParcelable("Profil");
+        user = getArguments().getParcelable("Profil");
+        Log.d("Le profil recupéré est celui de: ", user.getFirst());
 
 
         ViewPager2 viewPager2 = view.findViewById(R.id.pager2);
@@ -107,7 +118,6 @@ public class Planning extends Fragment implements Observer {
         motivation = (TextView) view.findViewById(R.id.motivQuoteText);
 
 
-        newMotivatiion();
 
 
     }
@@ -237,11 +247,8 @@ public class Planning extends Fragment implements Observer {
             textView.setTextColor(Color.parseColor((i == index) ? "#000000" : "#616161"));
         }
     }
-
-    public void newMotivatiion(){
-
-        number += 1;
-        DocumentReference docRef = db.collection("Motivation").document(String.valueOf(number));
+    public static void newMotivatiion(){
+        DocumentReference docRef = db.collection("Motivation").document(String.valueOf(MainActivity.number));
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -251,7 +258,7 @@ public class Planning extends Fragment implements Observer {
                         motivation.setText(document.getData().get("Phrase").toString());
                         Log.d("MotivationText", "DocumentSnapshot data: " + document.getData());
                     } else {
-                        number = 0;
+                        MainActivity.number = 1;
                         Log.d("MotivationText", "No such document");
                     }
                 } else {
