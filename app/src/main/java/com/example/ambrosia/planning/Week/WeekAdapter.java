@@ -53,7 +53,7 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.WeekViewHolder
 
         void setDayData(WeekItems weekData) {
             for (int i = 0; i < textViewList.size(); i++) {
-                textViewList.get(i).setText("kcal : " + weekData.getKcals().get(i));
+                textViewList.get(i).setText("kcal : " + weekData.getItems(i));
             }
         }
     }
