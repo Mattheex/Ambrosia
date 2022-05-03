@@ -3,9 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_planning.xml" value="0.1" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/active_text.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/activity_main.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/activity_profil.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/content_notification.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_chat.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_day.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_details.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_forum.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_planning.xml" value="0.264" />
         <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_profil.xml" value="0.2" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_profile_mail.xml" value="0.2" />
         <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_profile_name.xml" value="0.2" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_profile_regime.xml" value="0.21164021164021163" />
+        <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout-land/fragment_week.xml" value="0.21164021164021163" />
         <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout/active_text.xml" value="0.19202898550724637" />
         <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout/activity_main.xml" value="0.20425724637681159" />
         <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/layout/activity_profil.xml" value="0.136" />

@@ -5,13 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="top"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".Profil">
 
 
+    <TextView
+        android:id="@+id/profil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_200"
+        android:text="@string/profil"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/titre_profil_size" />
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="557dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -26,10 +45,10 @@
             android:textSize="@dimen/nom_profil_size" />
 
         <TextView
-            android:id="@+id/mail"
+            android:id="@+id/pseudo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mail :"
+            android:text="Pseudo :"
             android:textColor="@color/black"
             android:textSize="@dimen/mail_profil_size" />
 
@@ -48,32 +67,6 @@
             android:text="Sexe :"
             android:textColor="@color/black"
             android:textSize="@dimen/sex_profil_size" />
-
-        <Button
-            android:id="@+id/recuperation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Changer le nom du profil" />
-
-        <Button
-            android:id="@+id/connection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="0dp"
-            android:text="Se connecter à un profil" />
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="200dp"
-        android:orientation="vertical">
-
 
         <TextView
             android:id="@+id/programme"
@@ -99,15 +92,27 @@
             android:textColor="@color/black"
             android:textSize="@dimen/poids_profil_size" />
 
-        <Button
-            android:id="@+id/creation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="Créer un profil type" />
+    </LinearLayout>
 
+    <Button
+        android:id="@+id/recuperation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Changer le nom du profil" />
+
+    <Button
+        android:id="@+id/connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="0dp"
+        android:text="Se connecter à un profil" />
 
     </LinearLayout>
+
+</ScrollView>
 
 
 </LinearLayout>

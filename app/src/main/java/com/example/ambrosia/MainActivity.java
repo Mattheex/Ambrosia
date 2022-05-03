@@ -61,7 +61,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d("mise a jour profil", user.getFirst());
         setContentView(R.layout.activity_main);
         bundle.putParcelable("Profil",(Parcelable) user);
-        replaceFragment(new Planning());
+
+        Fragment Forum = new Forum();
+        Fragment Planning = new Planning();
+        Fragment Profil = new Profil();
+
+        replaceFragment(Planning);
+
+
 
         binding = findViewById(R.id.parametreMenu);
         binding.getMenu().getItem(1).setChecked(true);
@@ -69,13 +76,13 @@ public class MainActivity extends AppCompatActivity {
             Log.d("switch", String.valueOf(item.getItemId()));
             switch (item.getItemId()) {
                 case R.id.nextPage:
-                    replaceFragment(new Profil());
+                    replaceFragment(Profil);
                     break;
                 case R.id.previous:
-                    replaceFragment(new Forum());
+                    replaceFragment(Forum);
                     break;
                 case R.id.planning:
-                    replaceFragment(new Planning());
+                    replaceFragment(Planning);
                     break;
             }
             return true;

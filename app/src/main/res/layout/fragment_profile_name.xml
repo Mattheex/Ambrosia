@@ -35,42 +35,57 @@
         app:layout_constraintTop_toBottomOf="@+id/lastName"
         tools:layout_editor_absoluteX="0dp" />
 
-    <ImageView
-        android:id="@+id/imageAnniv"
-        android:layout_width="142dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="30dp"
-        android:clickable="true"
-        android:focusable="auto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/anniversaire"
-        app:layout_constraintTop_toBottomOf="@+id/firstName"
-        app:srcCompat="@drawable/ic_outline_calendar_today_24" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/pseudo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="Pseudo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+            app:layout_constraintVertical_bias="0.129" />
 
-    <TextView
+        <ImageView
+            android:id="@+id/imageAnniv"
+            android:layout_width="142dp"
+            android:layout_height="128dp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:focusable="auto"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/anniversaire"
+            app:layout_constraintTop_toBottomOf="@+id/firstName"
+            app:srcCompat="@drawable/ic_outline_calendar_today_24" />
+
+        <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Date de naissance"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup"
         tools:layout_editor_absoluteX="0dp" />
 
-    <TextView
-        android:id="@+id/anniversaire"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        <TextView
+            android:id="@+id/anniversaire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="28dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-    <RadioGroup
+        <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+            android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/firstName">
@@ -88,36 +103,12 @@
             android:text="Femme" />
     </RadioGroup>
 
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:hint="Email"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.129" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/confirm_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:hint="Confirmer email"
-        app:layout_constraintTop_toTopOf="@id/email"
-        tools:layout_editor_absoluteX="0dp" />
-
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/mot_de_passe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:hint="mot de passe"
-        app:layout_constraintTop_toTopOf="@id/confirm_email"
+        android:hint="Mot de passe"
         tools:layout_editor_absoluteX="0dp" />
 
 
@@ -139,6 +130,7 @@
             app:layout_constraintBottom_toTopOf="@+id/spinner"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.051"
+            android:layout_marginLeft="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.39" />
@@ -148,7 +140,33 @@
             android:id="@+id/spinner"
             android:layout_width="409dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:entries="@array/menus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/allergieListe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Allergies"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.39" />
+
+
+        <Spinner
+            android:id="@+id/spinnerAllergie"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:entries="@array/allergieList"
+            android:layout_gravity="center_horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -158,11 +176,11 @@
             android:id="@+id/actual_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
             android:layout_marginTop="60dp"
             android:ems="10"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:hint="Poids Actuel"
+
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner" />
@@ -172,10 +190,9 @@
             android:id="@+id/wanted_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
             android:layout_marginTop="20dp"
             android:ems="10"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:hint="Poids souhaité"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"

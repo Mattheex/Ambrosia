@@ -19,4 +19,13 @@
         <item> Prise de masse musculaire </item>
         <item> Devenir végétarien</item>
     </string-array>
+    <string-array name="allergieList">
+        <item> Oeuf </item>
+        <item> Lait de vache </item>
+        <item> Arachide </item>
+        <item> Fruits à coque </item>
+        <item> Blé </item>
+        <item> Soja </item>
+        <item> Fruits de mer, crustacés </item>
+    </string-array>
 </resources>

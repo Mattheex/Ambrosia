@@ -137,7 +137,6 @@ public class Planning extends Fragment implements Observer {
             Toast.makeText(getContext(),textView.getText(),Toast.LENGTH_LONG).show();
             //view3.findViewWithTag(R.id.);
         });*/
-
     }
 
     @Override

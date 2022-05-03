@@ -40,7 +40,7 @@ public class ParametreProfilBis extends Fragment {
                              Bundle savedInstanceState) {
         View myView = inflater.inflate(R.layout.fragment_profile_mail, container, false);
 
-        EditText emails = (EditText) myView.findViewById(R.id.emailConnexion);
+        EditText emails = (EditText) myView.findViewById(R.id.pseudoConnexion);
         EditText mdps = (EditText) myView.findViewById(R.id.mdpConnexion);
 
 
@@ -75,7 +75,7 @@ public class ParametreProfilBis extends Fragment {
 
                                     }
                                 } else {
-                                    alerte("Le mail est incorrect");
+                                    alerte("Le pseudo n'existe pas");
                                     Log.d("Connexion probleme mail", "No such document");
                                 }
                             } else {

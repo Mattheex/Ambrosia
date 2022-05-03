@@ -13,8 +13,7 @@
         android:id="@+id/profil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/purple_200"
+        android:background="@color/green_200"
         android:text="@string/profil"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -38,10 +37,10 @@
             android:textSize="@dimen/nom_profil_size" />
 
         <TextView
-            android:id="@+id/mail"
+            android:id="@+id/pseudo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mail :"
+            android:text="Pseudo :"
             android:textColor="@color/black"
             android:textSize="@dimen/mail_profil_size" />
 

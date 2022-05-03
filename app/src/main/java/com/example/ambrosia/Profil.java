@@ -56,21 +56,22 @@ public class Profil extends Fragment {
         Button buttonRecuperation = (Button) view.findViewById(R.id.recuperation);
         Button buttonConnection = (Button) view.findViewById(R.id.connection);
 
-        TextView mail = (TextView) view.findViewById(R.id.mail);
+        TextView pseudo = (TextView) view.findViewById(R.id.pseudo);
         TextView age = (TextView) view.findViewById(R.id.age);
         TextView sexe = (TextView) view.findViewById(R.id.sexe);
         TextView allergie = (TextView) view.findViewById(R.id.allergie);
         TextView poids = (TextView) view.findViewById(R.id.poids);
+        TextView programme = (TextView) view.findViewById(R.id.programme);
         TextView nom = (TextView) view.findViewById(R.id.nom);
 
-        AffichageProfil(nom, mail, age, sexe);
+        AffichageProfil(nom, pseudo, age, sexe, poids, programme, allergie);
 
 
         buttonRecuperation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 MainActivity.user.setFirst(" BALOU DESORMAIS");
-                AffichageProfil(nom, mail, age, sexe);
+                AffichageProfil(nom, pseudo, age, sexe, poids, programme, allergie);
                 // La on doit changer le nom dans FIREBASE
             }
         });
@@ -91,7 +92,7 @@ public class Profil extends Fragment {
                                     Log.d("Bonjour", "DocumentSnapshot data: " + document.getData());
                                     User userz = document.toObject(User.class);
                                     nom.setText("Nom : " + userz.getFirst());
-                                    mail.setText("Mail : " + userz.getMail());
+                                    pseudo.setText("Pseudo : " + userz.getPseudo());
                                     age.setText("Age : " + userz.getAge());
                                     sexe.setText("Sexe : " + userz.getSexe());
                                 }else {
@@ -115,11 +116,14 @@ public class Profil extends Fragment {
         return view;
     }
 
-    public void AffichageProfil(TextView nom, TextView mail, TextView age, TextView sexe){
+    public void AffichageProfil(TextView nom, TextView pseudo, TextView age, TextView sexe, TextView poids, TextView programme, TextView allergie){
         nom.setText("Nom : " + MainActivity.user.getFirst());
-        mail.setText("Mail : " + MainActivity.user.getMail());
+        pseudo.setText("Pseudo : " + MainActivity.user.getPseudo());
         age.setText("Age : " + MainActivity.user.getAge());
         sexe.setText("Sexe : " + MainActivity.user.getSexe());
+        poids.setText("Poids : " + MainActivity.user.getPoidsActuel() + " Kg");
+        programme.setText("Programme : " + MainActivity.user.getProgramme());
+        allergie.setText("Allergies : " + MainActivity.user.getAllergie());
 
     }
 
