@@ -21,94 +21,110 @@
 
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-        <TextView
-            android:id="@+id/nom"
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/nom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:text="Nom :"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/nom_profil_size" />
+
+                <TextView
+                    android:id="@+id/pseudo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pseudo :"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/mail_profil_size" />
+
+                <TextView
+                    android:id="@+id/age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Age :"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/age_profil_size" />
+
+                <TextView
+                    android:id="@+id/sexe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sexe :"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sex_profil_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="50"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/programme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Programme :"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/programme_profil_size" />
+
+                <TextView
+                    android:id="@+id/allergie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Allergie :"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/allergie_profil_size" />
+
+                <TextView
+                    android:id="@+id/poids"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="poids :"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/poids_profil_size" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/recuperation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:text="Nom :"
-            android:textColor="@color/black"
-            android:textSize="@dimen/nom_profil_size" />
+            android:layout_marginBottom="0dp"
+            android:layout_gravity="center"
+            android:text="Paramètres de profil " />
 
-        <TextView
-            android:id="@+id/pseudo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pseudo :"
-            android:textColor="@color/black"
-            android:textSize="@dimen/mail_profil_size" />
+        <Button
+            android:id="@+id/connection"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="0dp"
+            android:text="Se connecter à un profil" />
 
-        <TextView
-            android:id="@+id/age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Age :"
-            android:textColor="@color/black"
-            android:textSize="@dimen/age_profil_size" />
-
-        <TextView
-            android:id="@+id/sexe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sexe :"
-            android:textColor="@color/black"
-            android:textSize="@dimen/sex_profil_size" />
-
-        <TextView
-            android:id="@+id/programme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Programme :"
-            android:textColor="@color/black"
-            android:textSize="@dimen/programme_profil_size" />
-
-        <TextView
-            android:id="@+id/allergie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Allergie :"
-            android:textColor="@color/black"
-            android:textSize="@dimen/allergie_profil_size" />
-
-        <TextView
-            android:id="@+id/poids"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="poids :"
-            android:textColor="@color/black"
-            android:textSize="@dimen/poids_profil_size" />
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/recuperation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="0dp"
-        android:layout_gravity="center_horizontal"
-        android:text="Changer le nom du profil" />
-
-    <Button
-        android:id="@+id/connection"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="0dp"
-        android:text="Se connecter à un profil" />
 
     </LinearLayout>
 

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     Bundle bundle = new Bundle();
     public static int number = (int) (Math.random()*(10-1));
     Handler handler = new Handler();
-    int delay = 100000;
+    int delay = 1000;
     Runnable runnable;
 
 
@@ -55,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         Planning.newMotivatiion();
 
         user = getIntent().getParcelableExtra("Profil");
-        Toast.makeText(this, "This user is here now" + user.getFirst(),
-        Toast.LENGTH_SHORT).show();
 
         Log.d("mise a jour profil", user.getFirst());
         setContentView(R.layout.activity_main);
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Log.e(getClass().getSimpleName(),"NOTIFICATION");
-            // NotificationEventReceiver.setupAlarm(getApplicationContext());
+            NotificationEventReceiver.setupAlarm(getApplicationContext());
         }).start();
     }
 
