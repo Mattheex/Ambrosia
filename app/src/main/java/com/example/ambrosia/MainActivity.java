@@ -7,25 +7,19 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.util.Log;
 import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 //import com.example.ambrosia.planning.Planning;
-import com.example.ambrosia.Forum.Forum;
+import com.example.ambrosia.Forums.Forum;
 import com.example.ambrosia.Users.User;
 import com.example.ambrosia.broadcast_receivers.NotificationEventReceiver;
-import com.example.ambrosia.parametres.Parametres;
 import com.example.ambrosia.planning.Planning;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.Calendar;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 

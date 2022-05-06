@@ -1,4 +1,4 @@
-package com.example.ambrosia.Forum;
+package com.example.ambrosia.Forums;
 
 import android.os.Bundle;
 import android.util.Log;
