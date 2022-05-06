@@ -8,6 +8,15 @@
     android:orientation="vertical"
     tools:context=".planning.Day.Day">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,4 +100,6 @@
             android:layout_height="wrap_content"
             android:text="" />
     </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
