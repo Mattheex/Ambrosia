@@ -2,19 +2,12 @@ package com.example.ambrosia.parametres;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.ambrosia.Forum;
-import com.example.ambrosia.Profil;
 import com.example.ambrosia.R;
 import com.example.ambrosia.Users.User;
-import com.example.ambrosia.planning.Planning;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
