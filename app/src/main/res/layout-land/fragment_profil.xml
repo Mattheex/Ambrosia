@@ -109,21 +109,27 @@
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/recuperation"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-            android:layout_gravity="center"
-            android:text="Paramètres de profil " />
+            >
+            <Button
+                android:id="@+id/changePoids"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="30dp"
+                android:text="Mettre à jour le poids" />
 
-        <Button
-            android:id="@+id/connection"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="0dp"
-            android:text="Se connecter à un profil" />
+            <EditText
+                android:id="@+id/poidsajour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:width="200px"
+                android:hint="Poids"/>
+
+        </LinearLayout>
 
 
     </LinearLayout>
