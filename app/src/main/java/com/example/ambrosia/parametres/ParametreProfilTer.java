@@ -43,7 +43,7 @@ public class ParametreProfilTer extends Fragment {
         entry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    DocumentReference docRef = db.collection("user").document("Developper");
+                    DocumentReference docRef = db.collection("user").document("Christinedu06");
                     docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {

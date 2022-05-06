@@ -7,12 +7,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcelable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,8 +55,8 @@ public class Profil extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        Button buttonRecuperation = (Button) view.findViewById(R.id.recuperation);
-        Button buttonConnection = (Button) view.findViewById(R.id.connection);
+        Button buttonChangePoids = (Button) view.findViewById(R.id.changePoids);
+        EditText changePoids = (EditText) view.findViewById(R.id.poidsajour);
 
         TextView pseudo = (TextView) view.findViewById(R.id.pseudo);
         TextView age = (TextView) view.findViewById(R.id.age);
@@ -67,38 +69,21 @@ public class Profil extends Fragment {
         AffichageProfil(nom, pseudo, age, sexe, poids, programme, allergie);
 
 
-        buttonRecuperation.setOnClickListener(new View.OnClickListener() {
+        buttonChangePoids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.user.setFirst(" BALOU DESORMAIS");
+                Integer poidsActu = Integer.valueOf(changePoids.getText().toString());
+                MainActivity.user.setPoidsActuel(poidsActu);
                 AffichageProfil(nom, pseudo, age, sexe, poids, programme, allergie);
-                // La on doit changer le nom dans FIREBASE
-            }
-        });
 
-
-        buttonConnection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                DocumentReference docRef = db.collection("user").document("Valentin");
+                DocumentReference docRef = db.collection("user").document(MainActivity.user.getPseudo());
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()){
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()){
-                                if(document.getData().get("password").toString().equals("bonjour")){
-                                    Log.d("Bonjour", "DocumentSnapshot data: " + document.getData());
-                                    User userz = document.toObject(User.class);
-                                    nom.setText("Nom : " + userz.getFirst());
-                                    pseudo.setText("Pseudo : " + userz.getPseudo());
-                                    age.setText("Age : " + userz.getAge());
-                                    sexe.setText("Sexe : " + userz.getSexe());
-                                }else {
-                                    // nom.setText("Veuillez rentrer le bon mot de passe");
-
-                                }
+                                db.collection("user").document(MainActivity.user.getPseudo()).update("poidsActuel",poidsActu);
                             }else{
                                 Log.d("bonjour", "No such document");
                             }
@@ -107,9 +92,10 @@ public class Profil extends Fragment {
                         }
                     }
                 });
-
+                // La on doit changer le nom dans FIREBASE
             }
         });
+
 
 
 
