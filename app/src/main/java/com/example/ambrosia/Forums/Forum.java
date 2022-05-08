@@ -9,6 +9,7 @@ import android.graphics.BitmapRegionDecoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,18 +65,9 @@ public class Forum extends Fragment {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK) {
-                            try {
-                                final Uri imageUri = result.getData().getData();
-                                Log.d("Images",imageUri.getPath());
-                                final InputStream imageStream = view.getContext().getContentResolver().openInputStream(imageUri);
-                                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                                selectedImg.setImageBitmap(selectedImage);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                                Toast.makeText(view.getContext().getApplicationContext(), "Une erreur s'est produite",Toast.LENGTH_LONG).show();
-
-                            }
-
+                            Bundle bundle =result.getData().getExtras();
+                            final Bitmap selectedImage = (Bitmap) bundle.get("data"); //BitmapFactory.decodeStream(imageStream);
+                            selectedImg.setImageBitmap(selectedImage);
                         }else {
                             Toast.makeText(view.getContext().getApplicationContext(),"Vous n'avez pas choisi d'image", Toast.LENGTH_LONG).show();
 
@@ -97,7 +89,7 @@ public class Forum extends Fragment {
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                Intent photoPickerIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 activityResultLauncher.launch(photoPickerIntent);
             }
         });
