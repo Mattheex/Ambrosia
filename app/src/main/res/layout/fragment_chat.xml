@@ -14,14 +14,14 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input"
-            android:layout_width="299dp"
-            android:layout_height="wrap_content"
+            android:layout_width="276dp"
+            android:layout_height="59dp"
             android:layout_alignParentBottom="true"
             android:gravity="bottom" />
 
         <Button
             android:id="@+id/send"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"

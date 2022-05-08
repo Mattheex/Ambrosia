@@ -7,23 +7,28 @@ public class ChatMessage {
     private String messageText;
     private String messageUser;
     private String messageTime;
+    private String photo = null;
 
-    public ChatMessage(String messageText, String messageUser, String messageTime){
+    public ChatMessage(String messageText, String messageUser,String photo) {
         this.messageText = messageText;
         this.messageUser = messageUser;
-        this.messageTime=messageTime;
+        this.photo=photo;
+        messageTime = String.valueOf(new Date().getTime());
     }
+
 
     public ChatMessage(String messageText, String messageUser) {
         this.messageText = messageText;
         this.messageUser = messageUser;
-
-        // Initialize to current time
         messageTime =String.valueOf(new Date().getTime());
     }
 
     public ChatMessage(){
 
+    }
+
+    public String getPhoto() {
+        return photo;
     }
 
     public String getMessageText() {

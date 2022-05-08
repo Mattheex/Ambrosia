@@ -51,14 +51,17 @@
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/activity_main.xml" value="0.1334853090172239" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/activity_notification.xml" value="0.1" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/activity_parametre_profil.xml" value="0.136" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/chat_test_frag.xml" value="0.176" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_chat.xml" value="0.152" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_day.xml" value="0.1334853090172239" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_details.xml" value="0.1" />
-        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_forum.xml" value="0.1" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_forum.xml" value="0.128" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_planning.xml" value="0.1334853090172239" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_profil.xml" value="0.1" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_profile_regime.xml" value="0.1" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_week.xml" value="0.1334853090172239" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.224" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.224" />
       </map>
     </option>
   </component>
