@@ -14,21 +14,32 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input"
-            android:layout_width="276dp"
-            android:layout_height="59dp"
+            android:layout_width="80pt"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="bottom" />
 
         <Button
-            android:id="@+id/send"
-            android:layout_width="120dp"
+            android:id="@+id/picture"
+            android:layout_width="45pt"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginStart="0dp"
             android:layout_marginBottom="0dp"
             android:layout_toEndOf="@+id/input"
             android:gravity="bottom"
-            android:text="Button" />
+            android:text="Photo" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="55pt"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_toEndOf="@+id/picture"
+            android:gravity="bottom"
+            android:text="Envoyer" />
 
         <ListView
             android:id="@+id/messages"

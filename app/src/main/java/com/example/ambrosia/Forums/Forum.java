@@ -70,7 +70,6 @@ public class Forum extends Fragment {
                             selectedImg.setImageBitmap(selectedImage);
                         }else {
                             Toast.makeText(view.getContext().getApplicationContext(),"Vous n'avez pas choisi d'image", Toast.LENGTH_LONG).show();
-
                         }
                     }
                 });

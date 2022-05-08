@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,23 +40,29 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Chat extends Fragment {
     private final static String TAG= "MESSAGERIE";
-    private TextInputEditText input;
+    private final static String NOT_AN_IMAGE="not an image";
     ArrayList<ChatMessage> messages = new ArrayList<>();
+    private TextInputEditText input;
     ListView listView;
     StorageReference storageRef;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore fb =FirebaseFirestore.getInstance();
     ActivityResultLauncher<Intent> activityResultLauncher;
+    ChatMessage message;
+    Bitmap selectedImage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         Task signed = mAuth.signInAnonymously();
         storageRef = FirebaseStorage.getInstance().getReference();
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
@@ -66,20 +73,11 @@ public class Chat extends Fragment {
                     @Override
                     public void onActivityResult(ActivityResult result) {
                         if (result.getResultCode() == RESULT_OK) {
-                            try {
-                                final Uri imageUri = result.getData().getData();
-                                final InputStream imageStream = view.getContext().getContentResolver().openInputStream(imageUri);
-                                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                                //selectedImg.setImageBitmap(selectedImage);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                                Toast.makeText(view.getContext().getApplicationContext(), "Une erreur s'est produite",Toast.LENGTH_LONG).show();
-
-                            }
-
+                            Bundle bundle =result.getData().getExtras();
+                            selectedImage = (Bitmap) bundle.get("data");
+                            Log.d(TAG,"Image choisie");
                         }else {
                             Toast.makeText(view.getContext().getApplicationContext(),"Vous n'avez pas choisi d'image", Toast.LENGTH_LONG).show();
-
                         }
                     }
                 });
@@ -95,15 +93,19 @@ public class Chat extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Log.d("TEST", "onClick: " + input);
-                String image= "/DCIM/Camera/IMG_20210805_150101.jpg";
-                ChatMessage message=new ChatMessage(input.getText().toString(),"Nicolas",image);
-                try {
-                    createImage(image);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                if(selectedImage!=null) {
+                    String id = String.valueOf(new Date().getTime());
+                    message = new ChatMessage(input.getText().toString(), "Nicolas", id);
+                    try {
+                        createImage(id);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
+                else{
+                    message = new ChatMessage(input.getText().toString(), "Nicolas");
+                }
+
                 fb.collection("Chat").document(message.getMessageTime()).set(message);
                 input.setText("");
                 messages.add(message);
@@ -113,14 +115,26 @@ public class Chat extends Fragment {
             }
         });
 
+        Button testButton= (Button) view.findViewById(R.id.picture);
+        testButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent photoPickerIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                activityResultLauncher.launch(photoPickerIntent);
+            }
+        });
+
         return view;
     }
 
     public void createImage(String image) throws FileNotFoundException {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-        Uri file = Uri.fromFile(new File(path + image));
-        StorageReference monImage = storageRef.child("Images/retest");
-        UploadTask uploadTask = monImage.putFile(file);
+        if (selectedImage!=null) {
+            StorageReference monImage = storageRef.child("Images/" + image);
+            ByteArrayOutputStream baos =new ByteArrayOutputStream();
+            selectedImage.compress(Bitmap.CompressFormat.JPEG,100,baos);
+            byte[] data = baos.toByteArray();
+            UploadTask uploadTask = monImage.putBytes(data);
+        }
     }
 
     public void UpdateMessages(View view){
