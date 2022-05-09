@@ -1,14 +1,8 @@
 package com.example.ambrosia.planning;
 
-import static com.example.ambrosia.planning.Day.DayEnum.Jeudi;
-import static com.example.ambrosia.planning.Day.DayEnum.Lundi;
-import static com.example.ambrosia.planning.Day.DayEnum.Mardi;
-import static com.example.ambrosia.planning.Day.DayEnum.Mercredi;
-
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,11 +22,8 @@ import com.example.ambrosia.Users.User;
 import com.example.ambrosia.planning.Day.DayAdapter;
 import com.example.ambrosia.planning.Day.DayEnum;
 import com.example.ambrosia.planning.Day.DayItems;
-import com.example.ambrosia.planning.Details.Details;
 import com.example.ambrosia.planning.Week.WeekAdapter;
 import com.example.ambrosia.planning.Week.WeekItems;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,7 +32,6 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -50,50 +39,62 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Planning extends Fragment implements Observer {
+    static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //static int number = (int) (Math.random()*(10-1));
+    static TextView motivation;
     boolean day = true;
     DayAdapter dayAdapter;
     WeekAdapter weekAdapter;
     LinearLayout linearLayout;
-    List<DayItems> dayItemsList = new ArrayList<>();
     ViewPager2 viewPager2;
-    String url = "https://www.foodrepo.org/api/v3/products?name_translations=lindt";
+    String url = "https://api.edamam.com/api/recipes/v2";
     List<WeekItems> weekItemsList = new ArrayList<>();
     User user;
+    private WeekItems weekItems = new WeekItems();
+    private Button changeScale;
 
-
-
-    static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //static int number = (int) (Math.random()*(10-1));
-    static TextView motivation;
+    public static void newMotivatiion() {
+        DocumentReference docRef = db.collection("Motivation").document(String.valueOf(MainActivity.number));
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    motivation.setText(document.getData().get("Phrase").toString());
+                    Log.d("MotivationText", "DocumentSnapshot data: " + document.getData());
+                } else {
+                    MainActivity.number = 1;
+                    Log.d("MotivationText", "No such document");
+                }
+            } else {
+                Log.d("MotivationText", "get failed with ", task.getException());
+            }
+        });
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         newMotivatiion();
-        // user = this.getArguments().getParcelable("Profil");
         user = getArguments().getParcelable("Profil");
         Log.d("Le profil recupéré est celui de: ", user.getFirst());
 
         viewPager2 = view.findViewById(R.id.pager2);
         OkHttpHandler okHttpHandler = new OkHttpHandler();
-        okHttpHandler.execute(url);
-        //List<WeekItems> weekItemsList = listWeeks();
+        okHttpHandler.execute(url, user.getProgramme(),this);
 
-        weekAdapter = new WeekAdapter(weekItemsList);
+        weekAdapter = new WeekAdapter(weekItemsList,this);
         linearLayout = view.findViewById(R.id.linearLayoutDays);
-        this.motivation = (TextView) view.findViewById(R.id.motivQuoteText);
-        // motivation = (TextView) view.findViewById(R.id.motivQuoteText);
+        motivation = view.findViewById(R.id.motivQuoteText);
 
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                //Log.d("position", String.valueOf(position));
+                Log.d("appDev", "position " + position);
                 if (day) {
                     setCurrentDay(position);
                 } else {
@@ -102,24 +103,24 @@ public class Planning extends Fragment implements Observer {
             }
         });
 
-        Button button = view.findViewById(R.id.buttonChange);
-        button.setOnClickListener(view1 -> {
+        changeScale = view.findViewById(R.id.buttonChange);
+        changeScale.setOnClickListener(view1 -> {
             if (day) {
                 viewPager2.setAdapter(weekAdapter);
-                setupWeeksIndicator();
+                setupIndicator(1);
                 setCurrentWeek(0);
                 day = false;
-                button.setText("Days");
+                changeScale.setText("Days");
             } else {
                 viewPager2.setAdapter(dayAdapter);
-                setupDaysIndicator();
+                setupIndicator(0);
                 setCurrentDay(0);
                 day = true;
-                button.setText("Weeks");
+                changeScale.setText("Weeks");
             }
         });
 
-        Food food = new Food("nutella", 450);
+        /*Food food = new Food("nutella");
         view.findViewById(R.id.motivQuoteText).setOnClickListener(view2 -> {
             Fragment detail = new Details();
             Bundle bundle = new Bundle();
@@ -130,12 +131,6 @@ public class Planning extends Fragment implements Observer {
                     .replace(R.id.frameLayout, detail)
                     .addToBackStack(null)
                     .commit();
-        });
-
-        /*view.findViewById(R.id.daysLayout).setOnClickListener(view3 -> {
-            TextView textView = view3.findViewById(R.id.descriptionDej);
-            Toast.makeText(getContext(),textView.getText(),Toast.LENGTH_LONG).show();
-            //view3.findViewWithTag(R.id.);
         });*/
     }
 
@@ -145,20 +140,26 @@ public class Planning extends Fragment implements Observer {
         return inflater.inflate(R.layout.fragment_planning, container, false);
     }
 
-    private WeekItems weekItems = new WeekItems();
+    public void newDays(Integer weekPos, int position){
+        dayAdapter = new DayAdapter(weekItemsList.get(weekPos).getDayItems());
+        viewPager2.setAdapter(dayAdapter);
+        setupIndicator(0);
+        setCurrentDay(position);
+        day = true;
+        changeScale.setText("Weeks");
+    }
 
     @Override
     public void update(Observable observable, Object o) {
-        DayItems dayItems = (DayItems) observable;
-        this.dayItemsList.add(dayItems);
-        weekItems.add(dayItems.sumKcal());
-        if (weekItems.getSize() == 3) {
+        DayItems dayItem = (DayItems) observable;
+        weekItems.add(dayItem);
+        if (weekItems.getSize() == 7) {
             this.weekItemsList.add(weekItems);
             weekItems = new WeekItems();
         }
     }
 
-    private void setupDaysIndicator() {
+    private void setupIndicator(int scale) {
         TextView[] days = new TextView[3];
         linearLayout.removeAllViews();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -167,24 +168,9 @@ public class Planning extends Fragment implements Observer {
         layoutParams.setMargins(10, 0, 10, 0);
         for (int i = 0; i < 3; i++) {
             days[i] = new TextView(getContext());
-            days[i].setText(dayAdapter.getDay(i).toString());
+            days[i].setText((scale == 0) ? dayAdapter.getDay(i).toString() : "Week " + i);
             days[i].setLayoutParams(layoutParams);
             days[i].setTextSize(20);
-            linearLayout.addView(days[i]);
-        }
-    }
-
-    private void setupWeeksIndicator() {
-        TextView[] days = new TextView[3];
-        linearLayout.removeAllViews();
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        layoutParams.setMargins(10, 0, 10, 0);
-        for (int i = 0; i < 3; i++) {
-            days[i] = new TextView(getContext());
-            days[i].setText("Week " + i);
-            days[i].setLayoutParams(layoutParams);
             linearLayout.addView(days[i]);
         }
     }
@@ -200,6 +186,7 @@ public class Planning extends Fragment implements Observer {
 
     private void setCurrentWeek(int index) {
         int[] limites = findIndex(index, weekAdapter.getItemCount());
+        Log.d("appDev", Arrays.toString(limites));
         for (int i = limites[0]; i <= limites[1]; i++) {
             TextView textView = (TextView) linearLayout.getChildAt(i - limites[0]);
             textView.setText("Week " + i);
@@ -223,81 +210,91 @@ public class Planning extends Fragment implements Observer {
         return new int[]{min, max};
     }
 
+
     public class OkHttpHandler extends AsyncTask {
 
         OkHttpClient client = new OkHttpClient();
+        String[] typeMeal = new String[]{"Breakfast", "Lunch", "Snack", "Dinner"};
+        List<Food> repas = new ArrayList<>();
+        Planning planning;
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            Request request = new Request.Builder()
-                    .url((String) objects[0])
-                    .header("User-Agent", "Ambrosia")
-                    .header("Accept", "application/json")
-                    .header("Authorization", "Token token=0773fa9ce6eafe47256f9329542c6e32")
-                    .build();
-            try {
-                Response response = client.newCall(request).execute();
-                return response.body().string();
-            } catch (Exception e) {
-                e.printStackTrace();
+            this.planning = (Planning) objects[2];
+            URL url;
+            Response response;
+            for (int i = 0; i < 4; i++) {
+                url = new URL((String) objects[0]);
+                url.addArguments("type", "public");
+                url.addArguments("app_id", "844cd12e");
+                url.addArguments("app_key", "9fc9723d156610f2a652ddedeaa141ad");
+                url.addArguments("mealType", typeMeal[i]);
+                url.addArguments("field", "label");
+                url.addArguments("field", "calories");
+                url.addArguments("field", "totalNutrients");
+                url.addArguments("health", "alcohol-free");
+                url.addArguments("cuisineType", "French");
+                url.addArguments("random", "true");
+                switch ((String) objects[1]) {
+                    case "Perte de poids":
+                        url.addArguments("diet", "low-carb");
+                        url.addArguments("diet", "low-fat");
+                        url.addArguments("diet", "low-sodium");
+                        break;
+                    case "Prise de poids":
+                        url.addArguments("calories", "1000-10000");
+                        break;
+                    case "Prise de masse musculaire":
+                        url.addArguments("diet", "high-fiber");
+                        url.addArguments("diet", "high-protein");
+                        break;
+                    case "Devenir végétarien":
+                        url.addArguments("diet", "balanced");
+                        url.addArguments("health", "vegetarian");
+                        break;
+                    default:
+                        Log.e("Error Programme Name", (String) objects[1]);
+                        return null;
+                }
+                Log.d("appDev", url.getUrl());
+                Request request = new Request.Builder().url(url.getUrl()).build();
+                try {
+                    response = client.newCall(request).execute();
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONArray jsonArray = jsonObject.getJSONArray("hits");
+                    for (int k = 0; k < jsonArray.length(); k++) {
+                        jsonObject = jsonArray
+                                .getJSONObject(k)
+                                .getJSONObject("recipe");
+                        String name = jsonObject.getString("label");
+                        Integer cal = (int) Math.round(jsonObject.getDouble("calories"));
+                        repas.add(new Food(name, cal));
+                    }
+                    Log.d("appDev", "size " + repas.size());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
             }
+
             return null;
         }
 
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            try {
-                JSONObject jsonObject = new JSONObject(String.valueOf(o));
-                JSONArray jsonArray = jsonObject.getJSONArray("data");
-                List<Food> repas = new ArrayList<>();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jsonObject = jsonArray
-                            .getJSONObject(i)
-                            .getJSONObject("name_translations");
-                    if (jsonObject.has("fr")) {
-                        String name = jsonObject.getString("fr");
-                        repas.add(new Food(name, 10));
-                    }
-                }
-                int k = 0;
-                for (int i = 0; i < 7; i++) {
-                    DayItems dayItems = new DayItems(DayEnum.values()[i]);
-                    dayItems.addObserver(Planning.this);
-                    dayItems.setRepas(repas.get(k++ % repas.size()),
-                            repas.get(k++ % repas.size()),
-                            repas.get(k++ % repas.size()),
-                            repas.get(k++ % repas.size()));
-                }
-                dayAdapter = new DayAdapter(dayItemsList);
-                viewPager2.setAdapter(dayAdapter);
-                setupDaysIndicator();
-                setCurrentDay(0);
-            } catch (JSONException e) {
-                e.printStackTrace();
+            for (int i = 0; i < 7 * 3; i++) {
+                DayItems dayItems = new DayItems(DayEnum.values()[i % 7]);
+                dayItems.addObserver(Planning.this);
+                dayItems.setRepas(repas.get(i % 20),
+                        repas.get(i % 20 + 20),
+                        repas.get(i % 20 + 40),
+                        repas.get(i % 20 + 60));
             }
+            dayAdapter = new DayAdapter(weekItemsList.get(0).getDayItems());
+            viewPager2.setAdapter(dayAdapter);
+            setupIndicator(0);
+            setCurrentDay(0);
         }
-    }
-
-
-    public static void newMotivatiion() {
-        DocumentReference docRef = db.collection("Motivation").document(String.valueOf(MainActivity.number));
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        motivation.setText(document.getData().get("Phrase").toString());
-                        Log.d("MotivationText", "DocumentSnapshot data: " + document.getData());
-                    } else {
-                        MainActivity.number = 1;
-                        Log.d("MotivationText", "No such document");
-                    }
-                } else {
-                    Log.d("MotivationText", "get failed with ", task.getException());
-                }
-            }
-        });
     }
 }

@@ -45,6 +45,6 @@ public class DayItems extends Observable {
     }
 
     public int sumKcal() {
-        return this.dej.getKcal() + this.midi.getKcal() + this.gouter.getKcal() + this.diner.getKcal();
+        return this.dej.getCal() + this.midi.getCal() + this.gouter.getCal() + this.diner.getCal();
     }
 }

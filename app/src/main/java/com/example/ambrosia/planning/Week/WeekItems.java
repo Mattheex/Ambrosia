@@ -1,28 +1,30 @@
 package com.example.ambrosia.planning.Week;
 
+import com.example.ambrosia.planning.Day.DayItems;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class WeekItems {
-    private final List<Integer> kcals;
+    private List<DayItems> dayItems;
 
     public WeekItems() {
-        this.kcals = new ArrayList<>();
-    }
-
-    public List<Integer> getKcals() {
-        return kcals;
+        this.dayItems = new ArrayList<>();
     }
 
     public int getSize() {
-        return this.kcals.size();
+        return this.dayItems.size();
     }
 
-    public int getItems(int i) {
-        return kcals.get(i);
+    public List<DayItems> getDayItems() {
+        return new ArrayList<>(dayItems);
     }
 
-    public void add(int kcal) {
-        kcals.add(kcal);
+    public DayItems getDay(int i) {
+        return dayItems.get(i);
+    }
+
+    public void add(DayItems dayItem) {
+        dayItems.add(dayItem);
     }
 }

@@ -14,10 +14,10 @@
     <string name="suivant" />
     <string name="précédent" />
     <string-array name="menus">
-        <item> Perte de poids </item>
-        <item> Prise de poids</item>
-        <item> Prise de masse musculaire </item>
-        <item> Devenir végétarien</item>
+        <item>Perte de poids</item>
+        <item>Prise de poids</item>
+        <item>Prise de masse musculaire</item>
+        <item>Devenir végétarien</item>
     </string-array>
     <string-array name="allergieList">
         <item> Oeuf </item>

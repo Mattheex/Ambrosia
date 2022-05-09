@@ -12,7 +12,7 @@ public enum DayEnum {
     DayEnum(int i) {
     }
 
-    public String get(int i) {
+    public static String get(int i) {
         return DayEnum.values()[i].toString();
     }
 }

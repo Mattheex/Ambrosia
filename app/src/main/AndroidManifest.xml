@@ -35,8 +35,6 @@
             android:exported="true">
         </activity>
 
-        <activity android:name=".planning.Details.Details" />
-
         <service
             android:name=".notification.NotificationIntentService"
             android:enabled="true"

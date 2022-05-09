@@ -37,6 +37,7 @@ public class ParametreProfilTer extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("terCreate","terCreate");
         View myView = inflater.inflate(R.layout.fragment_profile_regime, container, false);
 
         Button entry = (Button) myView.findViewById(R.id.Entry);

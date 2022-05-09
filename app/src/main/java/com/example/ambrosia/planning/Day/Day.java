@@ -2,9 +2,12 @@ package com.example.ambrosia.planning.Day;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,5 +32,11 @@ public class Day extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.daysLayout).setOnClickListener(view3 -> {
+            TextView textView = view3.findViewById(R.id.descriptionDej);
+            Log.e("click", (String) textView.getText());
+            //Toast.makeText(getContext(),textView.getText(),Toast.LENGTH_LONG).show();
+            //view3.findViewWithTag(R.id.);
+        });
     }
 }

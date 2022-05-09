@@ -20,6 +20,7 @@ public class Parametres extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("parameter","before replace fragment");
         setContentView(R.layout.activity_profil);
         replaceFragment(new ParametreProfilTer());
         binding = findViewById(R.id.parametreMenu);

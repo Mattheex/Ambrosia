@@ -1,24 +1,27 @@
 package com.example.ambrosia.planning.Week;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ambrosia.R;
+import com.example.ambrosia.planning.Planning;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.WeekViewHolder> {
 
     private final List<WeekItems> weekList;
+    private Planning planning;
 
-    public WeekAdapter(List<WeekItems> weekList) {
+    public WeekAdapter(List<WeekItems> weekList, Planning planning) {
         this.weekList = weekList;
+        this.planning = planning;
     }
 
     @NonNull
@@ -31,7 +34,7 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.WeekViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull WeekViewHolder holder, int position) {
-        holder.setDayData(weekList.get(position));
+        holder.setDayData(weekList.get(position), position);
     }
 
     @Override
@@ -41,20 +44,17 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.WeekViewHolder
 
     class WeekViewHolder extends RecyclerView.ViewHolder {
 
-        private final List<TextView> textViewList = new ArrayList<>();
+        private Context context;
 
         public WeekViewHolder(@NonNull View itemView) {
             super(itemView);
-            //Log.d("error",itemView.findViewById(R.id.dayMardi).toString());
-            textViewList.add(itemView.findViewById(R.id.kcal1));
-            textViewList.add(itemView.findViewById(R.id.kcal2));
-            textViewList.add(itemView.findViewById(R.id.kcal3));
+            this.context = itemView.getContext();
         }
 
-        void setDayData(WeekItems weekData) {
-            for (int i = 0; i < textViewList.size(); i++) {
-                textViewList.get(i).setText("kcal : " + weekData.getItems(i));
-            }
+        void setDayData(WeekItems weekData, Integer weekPosition) {
+            DaysAdapter adapter = new DaysAdapter(context, weekData, weekPosition, planning);
+            ListView list = itemView.findViewById(R.id.listView);
+            list.setAdapter(adapter);
         }
     }
 }

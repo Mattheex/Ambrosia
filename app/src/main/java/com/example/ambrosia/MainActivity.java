@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Bundle bundle = new Bundle();
     public static int number = (int) (Math.random()*(10-1));
     Handler handler = new Handler();
-    int delay = 1000;
+    int delay = 100000;
     Runnable runnable;
 
 
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Planning.newMotivatiion();
+        Log.d("MainActivy","call");
 
         user = getIntent().getParcelableExtra("Profil");
 
