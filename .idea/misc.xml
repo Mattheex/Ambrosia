@@ -34,7 +34,6 @@
         <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
         <entry key="..\:/Users/Valentin/Ambrosia/app/src/main/res/menu/creation_nav_menu.xml" value="0.25" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/drawable/border.xml" value="0.1645" />
-        <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout-land/fragment_week.xml" value="0.21164021164021163" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/active_text.xml" value="0.11041666666666666" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/activity_main.xml" value="0.1947463768115942" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/activity_profil.xml" value="0.1" />
@@ -44,19 +43,17 @@
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/fragment_details.xml" value="0.25" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/fragment_planning.xml" value="0.25" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/fragment_profil.xml" value="0.23233695652173914" />
-        <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/fragment_profile_name.xml" value="0.12158054711246201" />
-        <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/fragment_profile_regime.xml" value="0.12158054711246201" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/fragment_week.xml" value="0.23233695652173914" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/headerfile.xml" value="0.25" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/toolbar.xml" value="0.2269021739130435" />
-        <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/layout/weeklist.xml" value="0.25" />
         <entry key="..\:/Users/matth/OneDrive/Documents/Polytech/IHM/Ambrosia/app/src/main/res/menu/sidemenu.xml" value="0.25" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout-land/fragment_forum.xml" value="0.10714285714285714" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/active_text.xml" value="0.1334853090172239" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/activity_main.xml" value="0.1334853090172239" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/activity_notification.xml" value="0.1" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/activity_parametre_profil.xml" value="0.136" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/chat_test_frag.xml" value="0.176" />
-        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_chat.xml" value="0.152" />
+        <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_chat.xml" value="0.1" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_day.xml" value="0.1334853090172239" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_details.xml" value="0.1" />
         <entry key="..\:/Users/nicol/Documents/GitHub/Ambrosia/app/src/main/res/layout/fragment_forum.xml" value="0.128" />

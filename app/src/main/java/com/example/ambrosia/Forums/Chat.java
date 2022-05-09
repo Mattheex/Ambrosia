@@ -24,8 +24,10 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.ambrosia.MainActivity;
 import com.example.ambrosia.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,7 +35,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -50,13 +55,14 @@ import java.util.Date;
 public class Chat extends Fragment {
     private final static String TAG= "MESSAGERIE";
     private final static String NOT_AN_IMAGE="not an image";
-    ArrayList<ChatMessage> messages = new ArrayList<>();
+    ArrayList<ChatMessage> messages;
     private TextInputEditText input;
     ListView listView;
     StorageReference storageRef;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore fb =FirebaseFirestore.getInstance();
     ActivityResultLauncher<Intent> activityResultLauncher;
+    final CollectionReference myRef=fb.collection("Chat");
     ChatMessage message;
     Bitmap selectedImage;
     @Override
@@ -67,7 +73,21 @@ public class Chat extends Fragment {
         storageRef = FirebaseStorage.getInstance().getReference();
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         listView = (ListView)view.findViewById(R.id.messages);
-        UpdateMessages(view);
+        //UpdateMessages(view);
+        myRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                //UpdateMessages(view);
+                messages=new ArrayList<>();
+                for(QueryDocumentSnapshot document: value){
+                    messages.add(document.toObject(ChatMessage.class));
+                }
+
+                ArrayAdapter<ChatMessage> arrayAdapter
+                        = new ArrayAdapter<ChatMessage>(view.getContext(), android.R.layout.simple_list_item_1 , messages);
+                listView.setAdapter(new ChatAdapter(view.getContext(),messages));
+            }
+        });
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
                     @Override
@@ -93,9 +113,10 @@ public class Chat extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String username = MainActivity.user.getPseudo();
                 if(selectedImage!=null) {
                     String id = String.valueOf(new Date().getTime());
-                    message = new ChatMessage(input.getText().toString(), "Nicolas", id);
+                    message = new ChatMessage(input.getText().toString(), username, id);
                     try {
                         createImage(id);
                     } catch (FileNotFoundException e) {
@@ -103,15 +124,12 @@ public class Chat extends Fragment {
                     }
                 }
                 else{
-                    message = new ChatMessage(input.getText().toString(), "Nicolas");
+                    message = new ChatMessage(input.getText().toString(), username);
                 }
 
                 fb.collection("Chat").document(message.getMessageTime()).set(message);
                 input.setText("");
-                messages.add(message);
-                ArrayAdapter<ChatMessage> arrayAdapter
-                        = new ArrayAdapter<ChatMessage>(view.getContext(), android.R.layout.simple_list_item_1 , messages);
-                listView.setAdapter(new ChatAdapter(view.getContext(),messages));
+                selectedImage=null;
             }
         });
 
@@ -131,35 +149,9 @@ public class Chat extends Fragment {
         if (selectedImage!=null) {
             StorageReference monImage = storageRef.child("Images/" + image);
             ByteArrayOutputStream baos =new ByteArrayOutputStream();
-            selectedImage.compress(Bitmap.CompressFormat.JPEG,100,baos);
+            selectedImage.compress(Bitmap.CompressFormat.PNG,0,baos);
             byte[] data = baos.toByteArray();
             UploadTask uploadTask = monImage.putBytes(data);
         }
     }
-
-    public void UpdateMessages(View view){
-        fb.collection("Chat")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            for(QueryDocumentSnapshot document: task.getResult()){
-                                messages.add(document.toObject(ChatMessage.class));
-                            }
-
-                            ArrayAdapter<ChatMessage> arrayAdapter
-                                    = new ArrayAdapter<ChatMessage>(view.getContext(), android.R.layout.simple_list_item_1 , messages);
-                            listView.setAdapter(new ChatAdapter(view.getContext(),messages));
-                        }
-                        else{
-                            Log.d(TAG,"Error getting documents : ", task.getException());
-                        }
-
-
-                    }
-                });
-
-    }
-
 }

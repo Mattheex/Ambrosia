@@ -32,7 +32,6 @@ public class ChatAdapter extends BaseAdapter {
     private List<ChatMessage> messages;
     private LayoutInflater layoutInflater;
     private Context context;
-    // Create a storage reference from our app
     StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     private Uri monImage;
 
@@ -41,7 +40,6 @@ public class ChatAdapter extends BaseAdapter {
         this.context=aContext;
         this.messages=messages;
         layoutInflater = LayoutInflater.from(aContext);
-        //Log.d("IMAGES",storageRef.child("coffee.png"));
     }
 
     @Override
@@ -62,14 +60,13 @@ public class ChatAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-        int imageId=0;
         if (convertView == null) {
 
             convertView = layoutInflater.inflate(R.layout.chat_test_frag, null);
             holder = new ViewHolder();
             holder.imageMessage = (ImageView) convertView.findViewById(R.id.photo);
             holder.textMessage = (TextView) convertView.findViewById(R.id.message_text);
-            holder.imageLink =(TextView) convertView.findViewById(R.id.imageLink);
+            holder.username = (TextView) convertView.findViewById(R.id.user);
 
             convertView.setTag(holder);
         } else {
@@ -79,6 +76,7 @@ public class ChatAdapter extends BaseAdapter {
         View finalConvertView = convertView;
         ChatMessage message = this.messages.get(position);
         holder.textMessage.setText(message.getMessageText());
+        holder.username.setText(message.getMessageUser());
         if(message.getPhoto()!=null) {
             StorageReference mImageRef = storageRef.child("Images/" + message.getPhoto());
             mImageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -92,15 +90,13 @@ public class ChatAdapter extends BaseAdapter {
             });
         }
 
-        //setBitmapFromURL("test",holder.imageMessage);
-        holder.imageLink.setText(storageRef.child("Images/test").getPath());
 
         return finalConvertView;
     }
 
     static class ViewHolder {
         ImageView imageMessage;
-        TextView textMessage,imageLink;
+        TextView textMessage,username;
     }
     private void setBitmapFromURL(String imageString, ImageView imageView) {
         StorageReference mImageRef = storageRef.child("Images/"+imageString);
