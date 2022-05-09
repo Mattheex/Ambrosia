@@ -21,6 +21,8 @@ import com.example.ambrosia.R;
 import com.example.ambrosia.Users.User;
 import com.example.ambrosia.planning.Day.DayAdapter;
 import com.example.ambrosia.planning.Day.DayItems;
+import com.example.ambrosia.planning.Details.Details;
+import com.example.ambrosia.planning.Details.Food;
 import com.example.ambrosia.planning.Week.WeekAdapter;
 import com.example.ambrosia.planning.Week.WeekItems;
 import com.google.firebase.firestore.DocumentReference;
@@ -44,18 +46,16 @@ import java.util.Observer;
  */
 public class Planning extends Fragment implements Observer {
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
-    //static int number = (int) (Math.random()*(10-1));
     static TextView motivation;
+    //static int number = (int) (Math.random()*(10-1));
+    String url = "https://api.edamam.com/api/recipes/v2";
     boolean day = true;
     DayAdapter dayAdapter;
     WeekAdapter weekAdapter;
     LinearLayout linearLayout;
     ViewPager2 viewPager2;
-    boolean block = false;
-    String url = "https://api.edamam.com/api/recipes/v2";
     List<WeekItems> weekItemsList = new ArrayList<>();
     User user;
-    private Integer start;
     private WeekItems weekItems = new WeekItems();
     private Button changeScale;
 
@@ -82,10 +82,12 @@ public class Planning extends Fragment implements Observer {
         newMotivatiion();
         user = getArguments().getParcelable("Profil");
         Log.d("Le profil recupéré est celui de: ", user.getFirst());
-
         viewPager2 = view.findViewById(R.id.pager2);
-        OkHttpHandler okHttpHandler = new OkHttpHandler();
-        okHttpHandler.execute(url, user.getProgramme());
+
+        if (weekItems.getSize() == 0) {
+            Planning.OkHttpHandler okHttpHandler = new Planning.OkHttpHandler();
+            okHttpHandler.execute(url, user.getProgramme());
+        }
 
         weekAdapter = new WeekAdapter(weekItemsList, this);
         linearLayout = view.findViewById(R.id.linearLayoutDays);
@@ -120,7 +122,6 @@ public class Planning extends Fragment implements Observer {
                 changeScale.setText("Weeks");
             }
         });
-
         /*Food food = new Food("nutella");
         view.findViewById(R.id.motivQuoteText).setOnClickListener(view2 -> {
             Fragment detail = new Details();
@@ -153,11 +154,16 @@ public class Planning extends Fragment implements Observer {
     @Override
     public void update(Observable observable, Object o) {
         DayItems dayItem = (DayItems) observable;
-        weekItems.add(dayItem);
-        if (weekItems.getSize() == 7) {
-            this.weekItemsList.add(weekItems);
-            weekItems = new WeekItems();
-        }
+        Food food = (Food) o;
+        Fragment detail = new Details();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("food", food);
+        detail.setArguments(bundle);
+        getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.frameLayout, detail)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void setupIndicator(int scale) {
@@ -291,7 +297,7 @@ public class Planning extends Fragment implements Observer {
             super.onPostExecute(o);
             for (int i = 0; i < 7 * 3; i++) {
                 DayItems dayItems = new DayItems(DayEnum.values()[i % 7]);
-                //dayItems.addObserver(Planning.this);
+                dayItems.addObserver(Planning.this);
                 dayItems.setRepas(repas.get(i % 20),
                         repas.get(i % 20 + 20),
                         repas.get(i % 20 + 40),

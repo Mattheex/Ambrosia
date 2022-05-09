@@ -4,5 +4,4 @@
     android:id="@+id/listView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
-    tools:context=".planning.Week.Week" />
+    android:layout_margin="10dp" />

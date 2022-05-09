@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Planning.newMotivatiion();
+
         Log.d("MainActivy","call");
 
         user = getIntent().getParcelableExtra("Profil");

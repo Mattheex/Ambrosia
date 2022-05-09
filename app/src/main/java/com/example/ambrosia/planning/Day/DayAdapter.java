@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ambrosia.R;
 import com.example.ambrosia.planning.DayEnum;
+import com.example.ambrosia.planning.Planning;
 
 import java.util.List;
 

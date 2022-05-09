@@ -1,7 +1,7 @@
 package com.example.ambrosia.planning.Day;
 
 import com.example.ambrosia.planning.DayEnum;
-import com.example.ambrosia.planning.Food;
+import com.example.ambrosia.planning.Details.Food;
 
 import java.util.Arrays;
 import java.util.Observable;
@@ -32,5 +32,10 @@ public class DayItems extends Observable {
 
     public int sumKcal() {
         return Arrays.stream(foodList).map(Food::getCal).reduce(0, Integer::sum);
+    }
+
+    public void click(int i){
+        setChanged();
+        notifyObservers(this.getFood(i));
     }
 }

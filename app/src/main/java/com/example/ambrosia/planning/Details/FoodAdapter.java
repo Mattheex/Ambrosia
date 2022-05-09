@@ -1,4 +1,4 @@
-package com.example.ambrosia.planning;
+package com.example.ambrosia.planning.Details;
 
 import android.view.View;
 import android.view.ViewGroup;

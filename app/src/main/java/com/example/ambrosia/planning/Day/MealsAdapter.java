@@ -9,12 +9,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.ambrosia.R;
-import com.example.ambrosia.planning.DayEnum;
+import com.example.ambrosia.planning.Planning;
 
 public class MealsAdapter extends BaseAdapter {
     private DayItems dayItem;
     private LayoutInflater inflater;
-    private String[] mealType = new String[]{"Petit-déjeuner","Déjeuner","Goûter","Diner"};
+    private String[] mealType = new String[]{"Petit-déjeuner", "Déjeuner", "Goûter", "Diner"};
 
     public MealsAdapter(Context context, DayItems dayItem) {
         this.dayItem = dayItem;
@@ -50,8 +50,7 @@ public class MealsAdapter extends BaseAdapter {
         details.setText(dayItem.getFood(i).getName());
         cal.setText(dayItem.getFood(i).getCal() + " cal");
 
-        /*layout.setOnClickListener(click ->
-                planning.newDays(weekPos,i));*/
+        layout.setOnClickListener(click -> dayItem.click(i));
         return layout;
     }
 }
