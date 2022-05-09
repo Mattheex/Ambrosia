@@ -26,17 +26,17 @@ public class Day extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_day, container, false);
+        return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        view.findViewById(R.id.daysLayout).setOnClickListener(view3 -> {
+        /*view.findViewById(R.id.daysLayout).setOnClickListener(view3 -> {
             TextView textView = view3.findViewById(R.id.descriptionDej);
             Log.e("click", (String) textView.getText());
             //Toast.makeText(getContext(),textView.getText(),Toast.LENGTH_LONG).show();
             //view3.findViewWithTag(R.id.);
-        });
+        });*/
     }
 }

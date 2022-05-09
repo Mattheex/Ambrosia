@@ -1,4 +1,4 @@
-package com.example.ambrosia.planning.Day;
+package com.example.ambrosia.planning;
 
 public enum DayEnum {
     Lundi(0),

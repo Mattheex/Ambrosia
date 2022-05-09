@@ -9,7 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.ambrosia.R;
-import com.example.ambrosia.planning.Day.DayEnum;
+import com.example.ambrosia.planning.DayEnum;
 import com.example.ambrosia.planning.Planning;
 
 public class DaysAdapter extends BaseAdapter {

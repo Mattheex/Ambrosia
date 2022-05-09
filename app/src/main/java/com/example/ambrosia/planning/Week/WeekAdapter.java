@@ -28,7 +28,7 @@ public class WeekAdapter extends RecyclerView.Adapter<WeekAdapter.WeekViewHolder
     @Override
     public WeekViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new WeekViewHolder(LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.fragment_week, parent, false
+                R.layout.fragment_list, parent, false
         ));
     }
 

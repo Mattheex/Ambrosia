@@ -1,20 +1,16 @@
 package com.example.ambrosia.planning.Day;
 
-import android.content.Intent;
-import android.os.Parcelable;
-import android.util.Log;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ambrosia.R;
-import com.example.ambrosia.planning.Details.Details;
-import com.example.ambrosia.planning.Food;
+import com.example.ambrosia.planning.DayEnum;
 
 import java.util.List;
 
@@ -30,7 +26,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
     @Override
     public DayViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new DayViewHolder(LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.fragment_day, parent, false
+                R.layout.fragment_list, parent, false
         ));
     }
 
@@ -50,21 +46,17 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
 
     class DayViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView dejText, midiText, goutText, dinerText;
+        private final Context context;
 
         public DayViewHolder(@NonNull View itemView) {
             super(itemView);
-            dejText = itemView.findViewById(R.id.descriptionDej);
-            midiText = itemView.findViewById(R.id.descriptionMidi);
-            goutText = itemView.findViewById(R.id.descriptionGout);
-            dinerText = itemView.findViewById(R.id.descriptionDiner);
+            this.context = itemView.getContext();
         }
 
         void setDayData(DayItems dayData) {
-            dejText.setText(dayData.getDej());
-            midiText.setText(dayData.getMidi());
-            goutText.setText(dayData.getGouter());
-            dinerText.setText(dayData.getDiner());
+            MealsAdapter adapter = new MealsAdapter(context, dayData);
+            ListView list = itemView.findViewById(R.id.listView);
+            list.setAdapter(adapter);
         }
     }
 }

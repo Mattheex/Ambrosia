@@ -20,7 +20,6 @@ import com.example.ambrosia.MainActivity;
 import com.example.ambrosia.R;
 import com.example.ambrosia.Users.User;
 import com.example.ambrosia.planning.Day.DayAdapter;
-import com.example.ambrosia.planning.Day.DayEnum;
 import com.example.ambrosia.planning.Day.DayItems;
 import com.example.ambrosia.planning.Week.WeekAdapter;
 import com.example.ambrosia.planning.Week.WeekItems;
@@ -52,9 +51,11 @@ public class Planning extends Fragment implements Observer {
     WeekAdapter weekAdapter;
     LinearLayout linearLayout;
     ViewPager2 viewPager2;
+    boolean block = false;
     String url = "https://api.edamam.com/api/recipes/v2";
     List<WeekItems> weekItemsList = new ArrayList<>();
     User user;
+    private Integer start;
     private WeekItems weekItems = new WeekItems();
     private Button changeScale;
 
@@ -84,9 +85,9 @@ public class Planning extends Fragment implements Observer {
 
         viewPager2 = view.findViewById(R.id.pager2);
         OkHttpHandler okHttpHandler = new OkHttpHandler();
-        okHttpHandler.execute(url, user.getProgramme(),this);
+        okHttpHandler.execute(url, user.getProgramme());
 
-        weekAdapter = new WeekAdapter(weekItemsList,this);
+        weekAdapter = new WeekAdapter(weekItemsList, this);
         linearLayout = view.findViewById(R.id.linearLayoutDays);
         motivation = view.findViewById(R.id.motivQuoteText);
 
@@ -94,7 +95,7 @@ public class Planning extends Fragment implements Observer {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                Log.d("appDev", "position " + position);
+                //Log.d("appDev", "position " + position);
                 if (day) {
                     setCurrentDay(position);
                 } else {
@@ -140,11 +141,11 @@ public class Planning extends Fragment implements Observer {
         return inflater.inflate(R.layout.fragment_planning, container, false);
     }
 
-    public void newDays(Integer weekPos, int position){
+    public void newDays(Integer weekPos, int position) {
         dayAdapter = new DayAdapter(weekItemsList.get(weekPos).getDayItems());
         viewPager2.setAdapter(dayAdapter);
+        viewPager2.post(() -> viewPager2.setCurrentItem(position, true));
         setupIndicator(0);
-        setCurrentDay(position);
         day = true;
         changeScale.setText("Weeks");
     }
@@ -177,6 +178,8 @@ public class Planning extends Fragment implements Observer {
 
     private void setCurrentDay(int index) {
         int[] limites = findIndex(index, dayAdapter.getItemCount());
+        Log.d("appDev", Arrays.toString(limites));
+        Log.d("appDev", "index " + index);
         for (int i = limites[0]; i <= limites[1]; i++) {
             TextView textView = (TextView) linearLayout.getChildAt(i - limites[0]);
             textView.setText(dayAdapter.getDay(i).toString());
@@ -216,11 +219,9 @@ public class Planning extends Fragment implements Observer {
         OkHttpClient client = new OkHttpClient();
         String[] typeMeal = new String[]{"Breakfast", "Lunch", "Snack", "Dinner"};
         List<Food> repas = new ArrayList<>();
-        Planning planning;
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            this.planning = (Planning) objects[2];
             URL url;
             Response response;
             for (int i = 0; i < 4; i++) {
@@ -267,6 +268,11 @@ public class Planning extends Fragment implements Observer {
                                 .getJSONObject(k)
                                 .getJSONObject("recipe");
                         String name = jsonObject.getString("label");
+                        /*Request requestTranslate = new Request.Builder().url("https://api.mymemory.translated.net/get?q=" + name + "&langpair=en|fr").build();
+                        Response responseTranslate = client.newCall(requestTranslate).execute();
+                        JSONObject jsonTrans = new JSONObject(responseTranslate.body().string());
+                        name = jsonTrans.getJSONObject("responseData").getString("translatedText");*/
+                        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
                         Integer cal = (int) Math.round(jsonObject.getDouble("calories"));
                         repas.add(new Food(name, cal));
                     }
@@ -285,11 +291,16 @@ public class Planning extends Fragment implements Observer {
             super.onPostExecute(o);
             for (int i = 0; i < 7 * 3; i++) {
                 DayItems dayItems = new DayItems(DayEnum.values()[i % 7]);
-                dayItems.addObserver(Planning.this);
+                //dayItems.addObserver(Planning.this);
                 dayItems.setRepas(repas.get(i % 20),
                         repas.get(i % 20 + 20),
                         repas.get(i % 20 + 40),
                         repas.get(i % 20 + 60));
+                weekItems.add(dayItems);
+                if (weekItems.getSize() == 7) {
+                    weekItemsList.add(weekItems);
+                    weekItems = new WeekItems();
+                }
             }
             dayAdapter = new DayAdapter(weekItemsList.get(0).getDayItems());
             viewPager2.setAdapter(dayAdapter);
