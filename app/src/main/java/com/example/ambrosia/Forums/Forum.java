@@ -59,20 +59,6 @@ public class Forum extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_forum, container, false);
         Button button =(Button) view.findViewById(R.id.input);
-        selectedImg = view.findViewById(R.id.imageTest);
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == RESULT_OK) {
-                            Bundle bundle =result.getData().getExtras();
-                            final Bitmap selectedImage = (Bitmap) bundle.get("data"); //BitmapFactory.decodeStream(imageStream);
-                            selectedImg.setImageBitmap(selectedImage);
-                        }else {
-                            Toast.makeText(view.getContext().getApplicationContext(),"Vous n'avez pas choisi d'image", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,31 +69,6 @@ public class Forum extends Fragment {
 
             }
         });
-
-        Button testButton= (Button) view.findViewById(R.id.test);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent photoPickerIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                activityResultLauncher.launch(photoPickerIntent);
-            }
-        });
-
-
-
-
         return view;
     }
-
-
-    public void createImage() throws FileNotFoundException {
-        String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-        Uri file = Uri.fromFile(new File(path + "/DCIM/Camera/IMG_20210529_134318.jpg"));
-        StorageReference monImage = storageRef.child("Images/retest");
-        UploadTask uploadTask = monImage.putFile(file);
-
-// Register observers to listen for when the download is done or if it fails
-    }
-
-
 }

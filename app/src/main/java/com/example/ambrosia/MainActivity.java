@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 //import com.example.ambrosia.planning.Planning;
+import com.example.ambrosia.Forums.Chat;
 import com.example.ambrosia.Forums.Forum;
 import com.example.ambrosia.Users.User;
 import com.example.ambrosia.broadcast_receivers.NotificationEventReceiver;
