@@ -225,7 +225,7 @@ public class Planning extends Fragment implements Observer {
             URL url;
             Response response;
             for (int i = 0; i < 4; i++) {
-                url = ((Programme) objects[1]).getURL();
+                url = user.getMyProgramme((String) objects[1]).getURL();
                 url.addArguments("mealType", typeMeal[i]);
                 Log.d("appDev", url.getUrl());
                 Request request = new Request.Builder().url(url.getUrl()).build();
