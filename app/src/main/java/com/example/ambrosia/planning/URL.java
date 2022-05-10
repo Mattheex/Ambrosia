@@ -10,11 +10,11 @@ public class URL {
     String base;
     Map<String, List<String>> arguments = new HashMap<>();
 
-    URL(String base) {
+    public URL(String base) {
         this.base = base;
     }
 
-    void addArguments(String name, String value) {
+    public void addArguments(String name, String value) {
         if (arguments.containsKey(name)) {
             arguments.get(name).add(value);
         } else {

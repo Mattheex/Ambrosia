@@ -3,6 +3,9 @@ package com.example.ambrosia.Users;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.ambrosia.programmes.MyProgrammeFactory;
+import com.example.ambrosia.programmes.Programme;
+
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -18,7 +21,7 @@ public class User implements Parcelable {
     private Integer age;
     private Integer poidsActuel;
     private Integer poidsSouhaité;
-    private String programme;
+    private Programme programme;
 
     public User(String born, String first, String last, String password, String pseudo, String sexe, Integer age, Integer poidsActuel, Integer poidsSouhaité, String programme, String allergie) {
         this.born = born;
@@ -30,7 +33,11 @@ public class User implements Parcelable {
         this.age = age;
         this.poidsActuel = poidsActuel;
         this.poidsSouhaité = poidsSouhaité;
-        this.programme = programme;
+        try {
+            this.programme = new MyProgrammeFactory().choose(programme,30);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
         this.allergie = allergie;
     }
 
@@ -109,12 +116,16 @@ public class User implements Parcelable {
         this.poidsSouhaité = poidsSouhaité;
     }
 
-    public String getProgramme() {
+    public Programme getProgramme() {
         return programme;
     }
 
     public void setProgramme(String programme) {
-        this.programme = programme;
+        try {
+            this.programme = new MyProgrammeFactory().choose(programme,30);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
     }
 
     public String getAllergie() {
@@ -149,7 +160,11 @@ public class User implements Parcelable {
         } else {
             poidsSouhaité = in.readInt();
         }
-        programme = in.readString();
+        try {
+            this.programme = new MyProgrammeFactory().choose(in.readString(),30);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
         allergie = in.readString();
     }
 
@@ -196,7 +211,7 @@ public class User implements Parcelable {
             parcel.writeByte((byte) 1);
             parcel.writeInt(poidsSouhaité);
         }
-        parcel.writeString(programme);
+        parcel.writeString(programme.toString());
         parcel.writeString(allergie);
     }
 }

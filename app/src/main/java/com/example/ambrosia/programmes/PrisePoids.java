@@ -5,5 +5,10 @@ public class PrisePoids extends ProgrammeTime{
         super(jour);
         nom = "PrisePoids";
         System.out.println("PrisePoids is created");
+        url.addArguments("calories", "1000-10000");
+    }
+    @Override
+    public String toString() {
+        return ProgrammeFactory.PRISEPOIDS;
     }
 }

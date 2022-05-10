@@ -1,7 +1,7 @@
 package com.example.ambrosia.programmes;
 
 public class MyProgrammeFactory extends ProgrammeFactory{
-    public Programme choose(int type, int jour) throws  Throwable{
+    public Programme choose(String type, int jour) throws  Throwable{
         switch (type){
             case PRISEPOIDS: return new PrisePoids(jour);
             case PERTEPOIDS: return new PertePoids(jour);

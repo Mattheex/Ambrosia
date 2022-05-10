@@ -25,6 +25,7 @@ import com.example.ambrosia.planning.Details.Details;
 import com.example.ambrosia.planning.Details.Food;
 import com.example.ambrosia.planning.Week.WeekAdapter;
 import com.example.ambrosia.planning.Week.WeekItems;
+import com.example.ambrosia.programmes.Programme;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -232,42 +233,8 @@ public class Planning extends Fragment implements Observer {
             URL url;
             Response response;
             for (int i = 0; i < 4; i++) {
-                url = new URL((String) objects[0]);
-                url.addArguments("type", "public");
-                url.addArguments("app_id", "844cd12e");
-                url.addArguments("app_key", "9fc9723d156610f2a652ddedeaa141ad");
+                url = ((Programme) objects[1]).getURL();
                 url.addArguments("mealType", typeMeal[i]);
-                url.addArguments("field", "label");
-                url.addArguments("field", "calories");
-                url.addArguments("field", "image");
-                url.addArguments("field", "url");
-                url.addArguments("field", "source");
-                url.addArguments("field", "ingredientLines");
-                url.addArguments("field", "totalNutrients");
-                url.addArguments("health", "alcohol-free");
-                url.addArguments("cuisineType", "French");
-                url.addArguments("random", "true");
-                switch ((String) objects[1]) {
-                    case "Perte de poids":
-                        url.addArguments("diet", "low-carb");
-                        url.addArguments("diet", "low-fat");
-                        url.addArguments("diet", "low-sodium");
-                        break;
-                    case "Prise de poids":
-                        url.addArguments("calories", "1000-10000");
-                        break;
-                    case "Prise de masse musculaire":
-                        url.addArguments("diet", "high-fiber");
-                        url.addArguments("diet", "high-protein");
-                        break;
-                    case "Devenir végétarien":
-                        url.addArguments("diet", "balanced");
-                        url.addArguments("health", "vegetarian");
-                        break;
-                    default:
-                        Log.e("Error Programme Name", (String) objects[1]);
-                        return null;
-                }
                 Log.d("appDev", url.getUrl());
                 Request request = new Request.Builder().url(url.getUrl()).build();
                 try {
