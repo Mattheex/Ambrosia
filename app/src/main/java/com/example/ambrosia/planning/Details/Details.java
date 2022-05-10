@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,7 +14,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.ambrosia.R;
-import com.example.ambrosia.planning.Week.DaysAdapter;
 
 public class Details extends Fragment {
     private Food food;
@@ -37,12 +38,17 @@ public class Details extends Fragment {
         food = bundle.getParcelable("food");
 
         TextView mealLabel = view.findViewById(R.id.mealLabel);
-        TextView recipe = view.findViewById(R.id.recipe);
 
         mealLabel.setText(food.getName());
 
         IngredientsAdapter adapter = new IngredientsAdapter(view.getContext(), food.getIngredientList());
         ListView list = view.findViewById(R.id.recipeList);
+        LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                food.getIngredientList().size() * 110);
+        list.setLayoutParams(mParam);
+        list.setMinimumHeight(food.getIngredientList().size() * 25);
         list.setAdapter(adapter);
+
+
     }
 }
