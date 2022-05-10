@@ -88,7 +88,11 @@ public class Planning extends Fragment implements Observer {
 
         if (weekItems.getSize() == 0) {
             Planning.OkHttpHandler okHttpHandler = new Planning.OkHttpHandler();
-            okHttpHandler.execute(url, user.getProgramme());
+            try {
+                okHttpHandler.execute(url, user.getProgramme());
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
         }
 
         weekAdapter = new WeekAdapter(weekItemsList, this);
@@ -233,7 +237,8 @@ public class Planning extends Fragment implements Observer {
             URL url;
             Response response;
             for (int i = 0; i < 4; i++) {
-                url = ((Programme) objects[1]).getURL();
+                url = user.getMyProgramme((String) objects[1]).getURL();
+
                 url.addArguments("mealType", typeMeal[i]);
                 Log.d("appDev", url.getUrl());
                 Request request = new Request.Builder().url(url.getUrl()).build();

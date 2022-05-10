@@ -21,7 +21,7 @@ public class User implements Parcelable {
     private Integer age;
     private Integer poidsActuel;
     private Integer poidsSouhaité;
-    private Programme programme;
+    private String programme;
 
     public User(String born, String first, String last, String password, String pseudo, String sexe, Integer age, Integer poidsActuel, Integer poidsSouhaité, String programme, String allergie) {
         this.born = born;
@@ -33,11 +33,7 @@ public class User implements Parcelable {
         this.age = age;
         this.poidsActuel = poidsActuel;
         this.poidsSouhaité = poidsSouhaité;
-        try {
-            this.programme = new MyProgrammeFactory().choose(programme,30);
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
+        this.programme = programme;
         this.allergie = allergie;
     }
 
@@ -116,16 +112,12 @@ public class User implements Parcelable {
         this.poidsSouhaité = poidsSouhaité;
     }
 
-    public Programme getProgramme() {
+    public String getProgramme() {
         return programme;
     }
 
     public void setProgramme(String programme) {
-        try {
-            this.programme = new MyProgrammeFactory().choose(programme,30);
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
+        this.programme = programme;
     }
 
     public String getAllergie() {
@@ -160,11 +152,7 @@ public class User implements Parcelable {
         } else {
             poidsSouhaité = in.readInt();
         }
-        try {
-            this.programme = new MyProgrammeFactory().choose(in.readString(),30);
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
+        programme = in.readString();
         allergie = in.readString();
     }
 
@@ -211,7 +199,15 @@ public class User implements Parcelable {
             parcel.writeByte((byte) 1);
             parcel.writeInt(poidsSouhaité);
         }
-        parcel.writeString(programme.toString());
+        parcel.writeString(programme);
         parcel.writeString(allergie);
+    }
+    public Programme getMyProgramme(String myProgramme){
+        try {
+            return new MyProgrammeFactory().choose(myProgramme,30);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        return null;
     }
 }

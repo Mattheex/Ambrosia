@@ -179,6 +179,7 @@ public class ParametreProfil extends Fragment {
     }
 
     public void existe(String email){
+
         DocumentReference docRef = db.collection("user").document(email);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

@@ -28,4 +28,9 @@ public class URL {
         //arguments.forEach((key, value) -> base += key + "=" + value + "&");
         return base.substring(0, base.length() - 1);
     }
+
+    @Override
+    public String toString() {
+        return getUrl();
+    }
 }
