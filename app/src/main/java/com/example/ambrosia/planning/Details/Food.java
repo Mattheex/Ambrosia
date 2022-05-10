@@ -4,17 +4,26 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Food implements Parcelable {
-    private final String name;
+    private String name;
+    private String image;
+    private String urlFood;
+    private String source;
     private Integer cal;
-    private Map<String, Integer> nutriments;
+    private List<String> ingredientList;
+    private Map<String, String> nutrients;
 
-    public Food(String name, Integer cal) {
+    public Food(String name, Integer cal, String image, String urlFood, String source, List<String> ingredientList, HashMap<String,String> nutrients) {
         this.name = name;
         this.cal = cal;
-        nutriments = new HashMap<>();
+        this.image = image;
+        this.urlFood = urlFood;
+        this.source = source;
+        this.ingredientList = ingredientList;
+        this.nutrients = nutrients;
     }
 
     protected Food(Parcel in) {
@@ -51,7 +60,23 @@ public class Food implements Parcelable {
         return cal;
     }
 
-    public Map<String, Integer> getNutriments() {
-        return nutriments;
+    public String getImage() {
+        return image;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public String getUrlFood() {
+        return urlFood;
+    }
+
+    public List<String> getIngredientList() {
+        return ingredientList;
+    }
+
+    public Map<String, String> getNutrients() {
+        return nutrients;
     }
 }

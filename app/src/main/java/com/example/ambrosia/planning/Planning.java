@@ -37,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -238,6 +239,10 @@ public class Planning extends Fragment implements Observer {
                 url.addArguments("mealType", typeMeal[i]);
                 url.addArguments("field", "label");
                 url.addArguments("field", "calories");
+                url.addArguments("field", "image");
+                url.addArguments("field", "url");
+                url.addArguments("field", "source");
+                url.addArguments("field", "ingredientLines");
                 url.addArguments("field", "totalNutrients");
                 url.addArguments("health", "alcohol-free");
                 url.addArguments("cuisineType", "French");
@@ -274,13 +279,30 @@ public class Planning extends Fragment implements Observer {
                                 .getJSONObject(k)
                                 .getJSONObject("recipe");
                         String name = jsonObject.getString("label");
+                        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+                        String image = jsonObject.getString("image");
+                        String source = jsonObject.getString("source");
+                        String urlFood = jsonObject.getString("url");
+                        Integer cal = (int) Math.round(jsonObject.getDouble("calories"));
+                        JSONArray jsonArrayIngredients = jsonObject.getJSONArray("ingredientLines");
+                        List<String> ingredientList = new ArrayList<>();
+                        for (int l = 0; l < jsonArrayIngredients.length(); l++)
+                            ingredientList.add((String) jsonArrayIngredients.get(l));
+                        JSONObject jsonObjectNutrients = jsonObject.getJSONObject("totalNutrients");
+                        JSONArray nutrientsName = jsonObjectNutrients.names();
+                        HashMap<String, String> nutrientsMap = new HashMap<>();
+                        for (int l = 0; l < nutrientsName.length(); l++) {
+                            JSONObject nutrient = jsonObjectNutrients.getJSONObject(nutrientsName.getString(l));
+                            nutrientsMap.put(nutrient.getString("label"),
+                                    Math.round(nutrient.getDouble("quantity")) + " " + nutrient.getString("unit"));
+                        }
+                        //Log.d("appDev", nutrientsMap.toString());
                         /*Request requestTranslate = new Request.Builder().url("https://api.mymemory.translated.net/get?q=" + name + "&langpair=en|fr").build();
                         Response responseTranslate = client.newCall(requestTranslate).execute();
                         JSONObject jsonTrans = new JSONObject(responseTranslate.body().string());
                         name = jsonTrans.getJSONObject("responseData").getString("translatedText");*/
-                        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-                        Integer cal = (int) Math.round(jsonObject.getDouble("calories"));
-                        repas.add(new Food(name, cal));
+
+                        repas.add(new Food(name, cal, image, urlFood, source, ingredientList, nutrientsMap));
                     }
                     Log.d("appDev", "size " + repas.size());
                 } catch (Exception e) {
