@@ -9,15 +9,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.ambrosia.R;
-import com.example.ambrosia.planning.DayEnum;
 
 import java.util.List;
-import java.util.Map;
 
-public class IngredientsAdapter extends BaseAdapter {
+public class NutrientsAdapter extends BaseAdapter {
     private List<String> ingredients;
     private LayoutInflater inflater;
-    public IngredientsAdapter(Context context, List<String> ingredients) {
+    public NutrientsAdapter(Context context, List<String> ingredients) {
         this.ingredients = ingredients;
         this.inflater = LayoutInflater.from(context);
     }

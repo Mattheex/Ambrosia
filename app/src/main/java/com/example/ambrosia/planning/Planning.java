@@ -38,6 +38,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
@@ -49,7 +50,6 @@ import java.util.Observer;
 public class Planning extends Fragment implements Observer {
     static FirebaseFirestore db = FirebaseFirestore.getInstance();
     static TextView motivation;
-    //static int number = (int) (Math.random()*(10-1));
     String url = "https://api.edamam.com/api/recipes/v2";
     boolean day = true;
     DayAdapter dayAdapter;
@@ -86,14 +86,13 @@ public class Planning extends Fragment implements Observer {
         Log.d("Le profil recupéré est celui de: ", user.getFirst());
         viewPager2 = view.findViewById(R.id.pager2);
 
-        if (weekItems.getSize() == 0) {
-            Planning.OkHttpHandler okHttpHandler = new Planning.OkHttpHandler();
-            try {
-                okHttpHandler.execute(url, user.getProgramme());
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+        Planning.OkHttpHandler okHttpHandler = new Planning.OkHttpHandler();
+        try {
+            okHttpHandler.execute(url, user.getProgramme());
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
         }
+
 
         weekAdapter = new WeekAdapter(weekItemsList, this);
         linearLayout = view.findViewById(R.id.linearLayoutDays);
@@ -128,18 +127,6 @@ public class Planning extends Fragment implements Observer {
                 changeScale.setText("Weeks");
             }
         });
-        /*Food food = new Food("nutella");
-        view.findViewById(R.id.motivQuoteText).setOnClickListener(view2 -> {
-            Fragment detail = new Details();
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("food", food);
-            detail.setArguments(bundle);
-            getActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.frameLayout, detail)
-                    .addToBackStack(null)
-                    .commit();
-        });*/
     }
 
     @Override
@@ -190,8 +177,8 @@ public class Planning extends Fragment implements Observer {
 
     private void setCurrentDay(int index) {
         int[] limites = findIndex(index, dayAdapter.getItemCount());
-        Log.d("appDev", Arrays.toString(limites));
-        Log.d("appDev", "index " + index);
+        //Log.d("appDev", Arrays.toString(limites));
+        //Log.d("appDev", "index " + index);
         for (int i = limites[0]; i <= limites[1]; i++) {
             TextView textView = (TextView) linearLayout.getChildAt(i - limites[0]);
             textView.setText(dayAdapter.getDay(i).toString());
@@ -231,14 +218,14 @@ public class Planning extends Fragment implements Observer {
         OkHttpClient client = new OkHttpClient();
         String[] typeMeal = new String[]{"Breakfast", "Lunch", "Snack", "Dinner"};
         List<Food> repas = new ArrayList<>();
+        boolean trad = false;
 
         @Override
         protected Object doInBackground(Object[] objects) {
             URL url;
             Response response;
             for (int i = 0; i < 4; i++) {
-                url = user.getMyProgramme((String) objects[1]).getURL();
-
+                url = ((Programme) objects[1]).getURL();
                 url.addArguments("mealType", typeMeal[i]);
                 Log.d("appDev", url.getUrl());
                 Request request = new Request.Builder().url(url.getUrl()).build();
@@ -251,7 +238,6 @@ public class Planning extends Fragment implements Observer {
                                 .getJSONObject(k)
                                 .getJSONObject("recipe");
                         String name = jsonObject.getString("label");
-                        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
                         String image = jsonObject.getString("image");
                         String source = jsonObject.getString("source");
                         String urlFood = jsonObject.getString("url");
@@ -268,12 +254,13 @@ public class Planning extends Fragment implements Observer {
                             nutrientsMap.put(nutrient.getString("label"),
                                     Math.round(nutrient.getDouble("quantity")) + " " + nutrient.getString("unit"));
                         }
-                        //Log.d("appDev", nutrientsMap.toString());
-                        /*Request requestTranslate = new Request.Builder().url("https://api.mymemory.translated.net/get?q=" + name + "&langpair=en|fr").build();
-                        Response responseTranslate = client.newCall(requestTranslate).execute();
-                        JSONObject jsonTrans = new JSONObject(responseTranslate.body().string());
-                        name = jsonTrans.getJSONObject("responseData").getString("translatedText");*/
-
+                        if (trad) {
+                            Request requestTranslate = new Request.Builder().url("https://api.mymemory.translated.net/get?q=" + name + "&langpair=en|fr").build();
+                            Response responseTranslate = client.newCall(requestTranslate).execute();
+                            JSONObject jsonTrans = new JSONObject(responseTranslate.body().string());
+                            name = jsonTrans.getJSONObject("responseData").getString("translatedText");
+                        }
+                        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
                         repas.add(new Food(name, cal, image, urlFood, source, ingredientList, nutrientsMap));
                     }
                     Log.d("appDev", "size " + repas.size());
@@ -289,8 +276,10 @@ public class Planning extends Fragment implements Observer {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
+            Calendar calendar = Calendar.getInstance();
+            int day = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
             for (int i = 0; i < 7 * 3; i++) {
-                DayItems dayItems = new DayItems(DayEnum.values()[i % 7]);
+                DayItems dayItems = new DayItems(DayEnum.values()[(i + day) % 7]);
                 dayItems.addObserver(Planning.this);
                 dayItems.setRepas(repas.get(i % 20),
                         repas.get(i % 20 + 20),
