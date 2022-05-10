@@ -212,6 +212,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/wanted_weight" />
 
+            <TextView
+                android:id="@+id/endRegime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <Button
+                android:id="@+id/calendar"
+                android:layout_marginTop="20px"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mettre un rappel"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/black"
+                />
+
             <Button
                 android:id="@+id/buttonValidation"
                 android:layout_width="wrap_content"

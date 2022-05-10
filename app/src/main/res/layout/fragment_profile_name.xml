@@ -203,12 +203,32 @@
             android:id="@+id/finReg"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:src="@drawable/ic_outline_calendar_today_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/wanted_weight" />
+
+
+        <TextView
+            android:id="@+id/endRegime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_gravity="center_horizontal"
+            android:textAlignment="center"
+            />
+
+        <Button
+            android:id="@+id/calendar"
+            android:layout_marginTop="20px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mettre un rappel"
+            android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/black"
+            />
 
         <Button
         android:id="@+id/buttonValidation"

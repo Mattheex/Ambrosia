@@ -37,6 +37,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class ParametreProfil extends Fragment {
     public Calendar calendar;
@@ -64,7 +65,48 @@ public class ParametreProfil extends Fragment {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(view.getContext(),
                         dateSetListener, 2000, 00, 1);
                 datePickerDialog.show();
+                }
+        });
+        calendar= Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        int year = calendar.get(Calendar.YEAR);
+        int month  = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        Log.d("CALENDRIER","so far not so good");
+        TextView endOfRegime = (TextView) myView.findViewById(R.id.endRegime);
+        endOfRegime.setText(calendar.getTime().toString());
+        ImageView endRegime = (ImageView) myView.findViewById(R.id.finReg);
+        Log.d("CALENDRIER","so far so good");
+        endRegime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                        setTime(year,monthOfYear,dayOfMonth);
+                        endOfRegime.setText(calendar.getTime().toString());
+                    }
+                };
+                DatePickerDialog datePickerDialog = new DatePickerDialog(view.getContext(),
+                        dateSetListener, year, month, day);
+                datePickerDialog.show();
+
+            }
+        });
+        Button calendarButton = (Button) myView.findViewById(R.id.calendar);
+        calendarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long time = calendar.getTime().getTime();
+                Intent intent = new Intent(Intent.ACTION_EDIT);
+                intent.setType("vnd.android.cursor.item/event");
+                intent.putExtra("beginTime",time);
+                intent.putExtra("allDay", true);
+                intent.putExtra("rule", "FREQ=YEARLY");
+                intent.putExtra("endTime", time+60*60*1000);
+                intent.putExtra("title", "Fin du régime");
+                startActivity(intent);
             }
         });
 
@@ -158,6 +200,9 @@ public class ParametreProfil extends Fragment {
                 }
             }
         });
+    }
+    public void setTime(int year, int month, int dayOfMonth){
+        calendar = new GregorianCalendar(year, month, dayOfMonth);
     }
 
 
