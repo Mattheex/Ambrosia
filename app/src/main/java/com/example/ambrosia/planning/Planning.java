@@ -127,6 +127,11 @@ public class Planning extends Fragment implements Observer {
                 changeScale.setText("Weeks");
             }
         });
+
+        view.findViewById(R.id.refresh).setOnClickListener(view12 -> {
+            OkHttpHandler okHttpHandler1 = new OkHttpHandler();
+            okHttpHandler1.execute(url, user.getProgramme());
+        });
     }
 
     @Override

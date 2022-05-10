@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="Photo du plat"
-        android:maxHeight="200sp"
-        android:src="@drawable/dejeuner" />
+        android:maxHeight="200sp" />
 
     <TextView
         android:id="@+id/mealLabel"
