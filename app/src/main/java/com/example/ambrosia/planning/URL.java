@@ -10,11 +10,11 @@ public class URL {
     String base;
     Map<String, List<String>> arguments = new HashMap<>();
 
-    URL(String base) {
+    public URL(String base) {
         this.base = base;
     }
 
-    void addArguments(String name, String value) {
+    public void addArguments(String name, String value) {
         if (arguments.containsKey(name)) {
             arguments.get(name).add(value);
         } else {
@@ -25,7 +25,11 @@ public class URL {
     String getUrl() {
         base += "?";
         arguments.forEach((key, values) -> values.forEach((value) -> base += key + "=" + value + "&"));
-        //arguments.forEach((key, value) -> base += key + "=" + value + "&");
         return base.substring(0, base.length() - 1);
+    }
+
+    @Override
+    public String toString() {
+        return getUrl();
     }
 }

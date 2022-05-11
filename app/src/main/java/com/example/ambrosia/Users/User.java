@@ -3,6 +3,9 @@ package com.example.ambrosia.Users;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.ambrosia.programmes.MyProgrammeFactory;
+import com.example.ambrosia.programmes.Programme;
+
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -198,5 +201,13 @@ public class User implements Parcelable {
         }
         parcel.writeString(programme);
         parcel.writeString(allergie);
+    }
+    public Programme getMyProgramme(String myProgramme){
+        try {
+            return new MyProgrammeFactory().choose(myProgramme,30);
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
+        return null;
     }
 }

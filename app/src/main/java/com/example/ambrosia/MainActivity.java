@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     Bundle bundle = new Bundle();
     public static int number = (int) (Math.random()*(10-1));
     Handler handler = new Handler();
-    int delay = 100000;
+    int delay = 10000;
     Runnable runnable;
 
 
