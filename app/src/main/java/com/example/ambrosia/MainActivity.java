@@ -12,29 +12,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-//import com.example.ambrosia.planning.Planning;
-import com.example.ambrosia.Forums.Chat;
 import com.example.ambrosia.Forums.Forum;
 import com.example.ambrosia.Users.User;
 import com.example.ambrosia.broadcast_receivers.NotificationEventReceiver;
+import com.example.ambrosia.planning.Details.Food;
 import com.example.ambrosia.planning.Planning;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
-    BottomNavigationView binding;
     public static User user;
+    public static int number = (int) (Math.random() * (10 - 1));
+    BottomNavigationView binding;
     MaterialToolbar toolbar;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     FrameLayout frameLayout;
     Bundle bundle = new Bundle();
-    public static int number = (int) (Math.random()*(10-1));
     Handler handler = new Handler();
     int delay = 10000;
     Runnable runnable;
+    List<Food> repas;
 
 
     @SuppressLint("NonConstantResourceId")
@@ -42,22 +47,33 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Planning.newMotivatiion();
-
-        Log.d("MainActivy","call");
+        Log.d("MainActivy", "call");
 
         user = getIntent().getParcelableExtra("Profil");
+        //repas = (ArrayList<Food>) getIntent().getSerializableExtra("repas");
+        repas = getIntent().getParcelableArrayListExtra("repas");
+        for(int i = 0;i<repas.size();i++){
+            Log.d("appDev main", String.valueOf(repas.get(i)) +i);
+        }
+        /*Log.d("appDev main ingredient", String.valueOf(repas));
+        Log.d("appDev main ingredient", String.valueOf(repas.get(0).getIngredientList()));
+        Log.d("appDev main nutrients", String.valueOf(repas.get(0).getNutrients()));
+        Log.d("appDev main source", String.valueOf(repas.get(0).getSource()));*/
+
 
         Log.d("mise a jour profil", user.getFirst());
         setContentView(R.layout.activity_main);
-        bundle.putParcelable("Profil",(Parcelable) user);
+        bundle.putParcelable("Profil", (Parcelable) user);
+        bundle.putParcelableArrayList("repas", (ArrayList<? extends Parcelable>) repas);
+        //bundle.putSerializable("repas", (Serializable) repas);
+        //bundle.putParcelable("repas", (Parcelable) repas);
 
         Fragment Forum = new Forum();
         Fragment Planning = new Planning();
         Fragment Profil = new Profil();
 
+
         replaceFragment(Planning);
-
-
 
         binding = findViewById(R.id.parametreMenu);
         binding.getMenu().getItem(1).setChecked(true);
@@ -96,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Log.e(getClass().getSimpleName(),"NOTIFICATION");
+            Log.e(getClass().getSimpleName(), "NOTIFICATION");
             NotificationEventReceiver.setupAlarm(getApplicationContext());
         }).start();
     }
@@ -134,5 +150,4 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         handler.removeCallbacks(runnable); //stop handler when activity not visible super.onPause();
     }
-
 }

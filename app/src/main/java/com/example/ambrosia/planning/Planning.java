@@ -1,7 +1,6 @@
 package com.example.ambrosia.planning;
 
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,21 +24,13 @@ import com.example.ambrosia.planning.Details.Details;
 import com.example.ambrosia.planning.Details.Food;
 import com.example.ambrosia.planning.Week.WeekAdapter;
 import com.example.ambrosia.planning.Week.WeekItems;
-import com.example.ambrosia.programmes.Programme;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -58,7 +49,6 @@ public class Planning extends Fragment implements Observer {
     ViewPager2 viewPager2;
     List<WeekItems> weekItemsList = new ArrayList<>();
     User user;
-    private WeekItems weekItems = new WeekItems();
     private Button changeScale;
 
     public static void newMotivatiion() {
@@ -83,20 +73,25 @@ public class Planning extends Fragment implements Observer {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         newMotivatiion();
         user = getArguments().getParcelable("Profil");
+
         Log.d("Le profil recupéré est celui de: ", user.getFirst());
         viewPager2 = view.findViewById(R.id.pager2);
 
-        Planning.OkHttpHandler okHttpHandler = new Planning.OkHttpHandler();
-        try {
-            okHttpHandler.execute(url, user.getProgramme());
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
+        //List<Food> repas = getArguments().getParcelable("repas");
+         //(ArrayList<Food>) getArguments().getSerializable("repas");
+        List<Food> repas =getArguments().getParcelableArrayList("repas");
+        Log.d("appDev main repas length", String.valueOf(repas.size()));
+
+        for(int i = 0;i<repas.size();i++){
+            //Log.d("appDev food 1", String.valueOf(repas.get(i)) +i);
         }
 
 
-        weekAdapter = new WeekAdapter(weekItemsList, this);
         linearLayout = view.findViewById(R.id.linearLayoutDays);
+        setRepas(repas);
+        weekAdapter = new WeekAdapter(weekItemsList, this);
         motivation = view.findViewById(R.id.motivQuoteText);
+
 
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -128,10 +123,36 @@ public class Planning extends Fragment implements Observer {
             }
         });
 
-        view.findViewById(R.id.refresh).setOnClickListener(view12 -> {
+        /*view.findViewById(R.id.refresh).setOnClickListener(view12 -> {
             OkHttpHandler okHttpHandler1 = new OkHttpHandler();
             okHttpHandler1.execute(url, user.getProgramme());
-        });
+        });*/
+    }
+
+    protected void setRepas(List<Food> repas) {
+        WeekItems weekItems = new WeekItems();
+        Calendar calendar = Calendar.getInstance();
+        int day = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
+        for(int i = 0 ; i<repas.size();i++){
+            Log.d("appDev food", String.valueOf(repas.get(i)));
+        }
+        for (int i = 0; i < 7 * 3; i++) {
+            DayItems dayItems = new DayItems(DayEnum.values()[(i + day) % 7]);
+            dayItems.addObserver(Planning.this);
+            dayItems.setRepas(repas.get(i % 20),
+                    repas.get(i % 20 + 20),
+                    repas.get(i % 20 + 20*2),
+                    repas.get(i % 20 + 20*3));
+            weekItems.add(dayItems);
+            if (weekItems.getSize() == 7) {
+                weekItemsList.add(weekItems);
+                weekItems = new WeekItems();
+            }
+        }
+        dayAdapter = new DayAdapter(weekItemsList.get(0).getDayItems());
+        viewPager2.setAdapter(dayAdapter);
+        setupIndicator(0);
+        setCurrentDay(0);
     }
 
     @Override
@@ -218,88 +239,4 @@ public class Planning extends Fragment implements Observer {
     }
 
 
-    public class OkHttpHandler extends AsyncTask {
-
-        OkHttpClient client = new OkHttpClient();
-        String[] typeMeal = new String[]{"Breakfast", "Lunch", "Snack", "Dinner"};
-        List<Food> repas = new ArrayList<>();
-        boolean trad = false;
-
-        @Override
-        protected Object doInBackground(Object[] objects) {
-            URL url;
-            Response response;
-            for (int i = 0; i < 4; i++) {
-                url = user.getMyProgramme((String) objects[1]).getURL();
-                url.addArguments("mealType", typeMeal[i]);
-                Log.d("appDev", url.getUrl());
-                Request request = new Request.Builder().url(url.getUrl()).build();
-                try {
-                    response = client.newCall(request).execute();
-                    JSONObject jsonObject = new JSONObject(response.body().string());
-                    JSONArray jsonArray = jsonObject.getJSONArray("hits");
-                    for (int k = 0; k < jsonArray.length(); k++) {
-                        jsonObject = jsonArray
-                                .getJSONObject(k)
-                                .getJSONObject("recipe");
-                        String name = jsonObject.getString("label");
-                        String image = jsonObject.getString("image");
-                        String source = jsonObject.getString("source");
-                        String urlFood = jsonObject.getString("url");
-                        Integer cal = (int) Math.round(jsonObject.getDouble("calories"));
-                        JSONArray jsonArrayIngredients = jsonObject.getJSONArray("ingredientLines");
-                        List<String> ingredientList = new ArrayList<>();
-                        for (int l = 0; l < jsonArrayIngredients.length(); l++)
-                            ingredientList.add((String) jsonArrayIngredients.get(l));
-                        JSONObject jsonObjectNutrients = jsonObject.getJSONObject("totalNutrients");
-                        JSONArray nutrientsName = jsonObjectNutrients.names();
-                        HashMap<String, String> nutrientsMap = new HashMap<>();
-                        for (int l = 0; l < nutrientsName.length(); l++) {
-                            JSONObject nutrient = jsonObjectNutrients.getJSONObject(nutrientsName.getString(l));
-                            nutrientsMap.put(nutrient.getString("label"),
-                                    Math.round(nutrient.getDouble("quantity")) + " " + nutrient.getString("unit"));
-                        }
-                        if (trad) {
-                            Request requestTranslate = new Request.Builder().url("https://api.mymemory.translated.net/get?q=" + name + "&langpair=en|fr").build();
-                            Response responseTranslate = client.newCall(requestTranslate).execute();
-                            JSONObject jsonTrans = new JSONObject(responseTranslate.body().string());
-                            name = jsonTrans.getJSONObject("responseData").getString("translatedText");
-                        }
-                        name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-                        repas.add(new Food(name, cal, image, urlFood, source, ingredientList, nutrientsMap));
-                    }
-                    Log.d("appDev", "size " + repas.size());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return null;
-                }
-            }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-            Calendar calendar = Calendar.getInstance();
-            int day = (calendar.get(Calendar.DAY_OF_WEEK) + 5) % 7;
-            for (int i = 0; i < 7 * 3; i++) {
-                DayItems dayItems = new DayItems(DayEnum.values()[(i + day) % 7]);
-                dayItems.addObserver(Planning.this);
-                dayItems.setRepas(repas.get(i % 20),
-                        repas.get(i % 20 + 20),
-                        repas.get(i % 20 + 40),
-                        repas.get(i % 20 + 60));
-                weekItems.add(dayItems);
-                if (weekItems.getSize() == 7) {
-                    weekItemsList.add(weekItems);
-                    weekItems = new WeekItems();
-                }
-            }
-            dayAdapter = new DayAdapter(weekItemsList.get(0).getDayItems());
-            viewPager2.setAdapter(dayAdapter);
-            setupIndicator(0);
-            setCurrentDay(0);
-        }
-    }
 }

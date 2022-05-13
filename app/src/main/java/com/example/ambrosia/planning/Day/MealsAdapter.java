@@ -1,6 +1,7 @@
 package com.example.ambrosia.planning.Day;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,10 @@ public class MealsAdapter extends BaseAdapter {
     public MealsAdapter(Context context, DayItems dayItem) {
         this.dayItem = dayItem;
         this.inflater = LayoutInflater.from(context);
+        for(int i = 0; i<dayItem.getSize();i++){
+            Log.d("appdev Meal", String.valueOf(dayItem.getFood(i)));
+        }
+
     }
 
     @Override
@@ -47,6 +52,7 @@ public class MealsAdapter extends BaseAdapter {
         TextView cal = layout.findViewById(R.id.mealCal);
 
         type.setText(mealType[i]);
+        //Log.d("appDev", String.valueOf(dayItem.for));
         details.setText(dayItem.getFood(i).getName());
         cal.setText(dayItem.getFood(i).getCal() + " cal");
 

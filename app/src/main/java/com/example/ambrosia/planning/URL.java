@@ -22,7 +22,7 @@ public class URL {
         }
     }
 
-    String getUrl() {
+    public String getUrl() {
         base += "?";
         arguments.forEach((key, values) -> values.forEach((value) -> base += key + "=" + value + "&"));
         return base.substring(0, base.length() - 1);

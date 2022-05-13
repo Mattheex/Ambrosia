@@ -1,6 +1,7 @@
 package com.example.ambrosia.planning.Day;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,7 @@ public class DayAdapter extends RecyclerView.Adapter<DayAdapter.DayViewHolder> {
         }
 
         void setDayData(DayItems dayData) {
+            Log.d("appDev dayAdapter", String.valueOf(dayData));
             MealsAdapter adapter = new MealsAdapter(context, dayData);
             ListView list = itemView.findViewById(R.id.listView);
             list.setAdapter(adapter);

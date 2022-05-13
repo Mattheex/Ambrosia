@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.example.ambrosia.MainActivity;
 import com.example.ambrosia.R;
 import com.example.ambrosia.Users.User;
+import com.example.ambrosia.Wait;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
@@ -53,7 +54,7 @@ public class ParametreProfilTer extends Fragment {
                                 if (document.exists()){
                                     Log.d("Bonjour", "DocumentSnapshot data: " + document.getData());
                                     user = document.toObject(User.class);
-                                    Intent home = new Intent(getActivity(), MainActivity.class);
+                                    Intent home = new Intent(getActivity(), Wait.class);
                                     home.putExtra("Profil", (Parcelable) user);
                                     startActivity(home);
                                     getActivity().finish();

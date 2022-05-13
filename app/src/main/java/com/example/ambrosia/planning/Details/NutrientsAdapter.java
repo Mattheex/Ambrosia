@@ -10,24 +10,27 @@ import android.widget.TextView;
 
 import com.example.ambrosia.R;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class NutrientsAdapter extends BaseAdapter {
-    private List<String> ingredients;
+    private List<String> nutrients = new ArrayList<>();
     private LayoutInflater inflater;
-    public NutrientsAdapter(Context context, List<String> ingredients) {
-        this.ingredients = ingredients;
+
+    public NutrientsAdapter(Context context, List<String> nutrients) {
+        this.nutrients = nutrients;
         this.inflater = LayoutInflater.from(context);
     }
 
     @Override
     public int getCount() {
-        return ingredients.size();
+        return nutrients.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return ingredients.get(i);
+        return nutrients.get(i);
     }
 
     @Override
@@ -42,7 +45,7 @@ public class NutrientsAdapter extends BaseAdapter {
         layout = (RelativeLayout) (view == null ? inflater.inflate(R.layout.ingredientslist, viewGroup, false) : view);
 
         TextView ingredient = layout.findViewById(R.id.ingredient);
-        ingredient.setText(ingredients.get(i));
+        ingredient.setText(nutrients.get(i));
 
         return layout;
     }

@@ -38,4 +38,12 @@ public class DayItems extends Observable {
         setChanged();
         notifyObservers(this.getFood(i));
     }
+
+    @Override
+    public String toString() {
+        return "DayItems{" +
+                "day=" + day +
+                ", foodList=" + Arrays.toString(foodList) +
+                '}';
+    }
 }

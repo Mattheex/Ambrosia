@@ -22,11 +22,11 @@
 
         <EditText
             android:id="@+id/mdpConnexion"
+            android:inputType="textPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:width="300dp"
-            android:inputType="textPassword"
             android:hint="Mot de passe"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,12 +40,12 @@
             android:id="@+id/buttonConnexion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="144dp"
+            android:layout_marginBottom="232dp"
             android:text="Connexion"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mdpConnexion"
-            app:layout_constraintVertical_bias="0.65999997" />
+            />
 </androidx.constraintlayout.widget.ConstraintLayout>
