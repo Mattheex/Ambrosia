@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Log.e(getClass().getSimpleName(),"NOTIFICATION");
-            //NotificationEventReceiver.setupAlarm(getApplicationContext());
+            NotificationEventReceiver.setupAlarm(getApplicationContext());
         }).start();
     }
 
