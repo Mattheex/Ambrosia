@@ -20,6 +20,7 @@
         <item>Devenir végétarien</item>
     </string-array>
     <string-array name="allergieList">
+        <item> sans allergie </item>
         <item> Oeuf </item>
         <item> Lait de vache </item>
         <item> Arachide </item>
