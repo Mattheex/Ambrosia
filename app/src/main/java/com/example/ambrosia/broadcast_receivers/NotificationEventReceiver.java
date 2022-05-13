@@ -52,32 +52,38 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
         if(heure == 20 && minute <= 5) {
             now.set(Calendar.HOUR_OF_DAY, 20);
             now.set(Calendar.MINUTE, minute + 1);
+            now.set(Calendar.SECOND, 0);
         }
         else if(heure > 20){
             now.set(Calendar.DAY_OF_MONTH, jour+1);
             now.set(Calendar.HOUR_OF_DAY, 20);
             now.set(Calendar.MINUTE, 0);
+            now.set(Calendar.SECOND, 0);
         }
         else if(heure < 7){
             now.set(Calendar.HOUR_OF_DAY, 7);
             now.set(Calendar.MINUTE, 0);
+            now.set(Calendar.SECOND, 0);
         }
         else if(heure == 7 && minute <= 5){
             now.set(Calendar.HOUR_OF_DAY, 7);
             now.set(Calendar.MINUTE, minute+1);
+            now.set(Calendar.SECOND, 0);
         }
         else if(heure < 13){
             now.set(Calendar.HOUR_OF_DAY, 13);
             now.set(Calendar.MINUTE, 0);
+            now.set(Calendar.SECOND, 0);
         }
         else if(heure == 13 && minute <= 5){
             now.set(Calendar.HOUR_OF_DAY, 13);
             now.set(Calendar.MINUTE, minute+1);
+            now.set(Calendar.SECOND, 0);
         }
         else if(heure <= 16){
-            now.set(Calendar.HOUR_OF_DAY, 13);
-            now.set(Calendar.MINUTE, 58);
-            now.set(Calendar.SECOND,0);
+            now.set(Calendar.HOUR_OF_DAY, 16);
+            now.set(Calendar.MINUTE, 30);
+            now.set(Calendar.SECOND, 0);
             if(heure == 16 && minute > 30) {
                 now.set(Calendar.MINUTE, minute+1);
             }
@@ -85,6 +91,7 @@ public class NotificationEventReceiver extends WakefulBroadcastReceiver {
         else{
             now.set(Calendar.HOUR_OF_DAY, 20);
             now.set(Calendar.MINUTE, 0);
+            now.set(Calendar.SECOND, 0);
         }
         System.out.println(now.get(Calendar.DAY_OF_MONTH));
         System.out.println(now.get(Calendar.HOUR_OF_DAY));
